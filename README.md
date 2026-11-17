@@ -16,7 +16,7 @@ Modern metropolitan infrastructure operates on fragile, hidden interdependencies
 
 A change in one system often triggers unexpected domino effects in another:
 - Peak arterial traffic congestion and EV charging queues create sudden transmission surges on electrical substations.
-- Transformer overheating causes localized voltage trips or load shedding.
+- Transformer overheating causes localized voltage drips or load shedding.
 - Power cuts to water treatment booster pumps lead to hydrostatic mains pressure drops, leaving communities without water.
 
 **CityNexus** is an urban intelligence and decision-support platform designed to break down these operational silos. Acting as a predictive digital twin, it unifies multi-domain sensor telemetry, calculates downstream blast radiuses, models cross-sector cascades through what-if simulations, and enables inter-agency coordination before localized problems escalate into citywide crises.
