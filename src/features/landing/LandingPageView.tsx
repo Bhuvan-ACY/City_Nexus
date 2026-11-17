@@ -7,12 +7,12 @@ export const LandingPageView: React.FC = () => {
     <div className="min-h-screen bg-[#090909] text-neutral-100 flex flex-col selection:bg-blue-600 selection:text-white">
       {/* Navigation */}
       <nav className="border-b border-neutral-800 bg-[#090909]/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 h-18 flex items-center justify-between py-3">
+        <div className="w-full px-6 lg:px-10 h-18 flex items-center justify-between py-3">
           <Link to="/" className="flex items-center gap-3.5 group">
-            <div className="h-10 w-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/25 transition-transform group-hover:scale-105">
+            <div className="h-10 w-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/25 transition-transform group-hover:scale-105 shrink-0">
               <Activity className="h-6 w-6 text-white stroke-[2.5]" />
             </div>
-            <span className="font-extrabold text-2xl tracking-tight text-white font-sans">
+            <span className="font-extrabold text-2xl tracking-tight text-white font-sans flex items-center">
               City<span className="text-blue-500">Nexus</span>
             </span>
           </Link>
