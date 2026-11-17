@@ -1,0 +1,32 @@
+PROBLEM STATEMENT = An urban area struggles to manage its interconnected infrastructure as traffic, electricity consumption, and public utilities constantly fluctuate. A change in one system often creates unexpected consequences in another, making conventional planning ineffective. How can the city understand these interconnected changes and make better decisions before problems escalate?.
+
+TECH STACK = 
+Frontend Core & Language
+
+​React: The core JavaScript library for building your user interfaces based on components.
+​Vite: The modern build tool and development server. It replaces Create React App to provide instant server starts and lightning-fast updates during development.
+​TypeScript: Adds strict static typing to your code. It ensures that the data you pull from your backend exactly matches what your frontend UI components expect, catching errors before they reach production.
+​
+2. Routing & Data Management
+​React Router: Handles client-side navigation, allowing users to transition smoothly between different pages of your app without the browser reloading.
+​TanStack Query (React Query): The industry standard for fetching data from your backend. It automatically handles caching, background updates, loading spinners, and error states.
+
+​3. Styling & Components
+​Tailwind CSS: A utility-first CSS framework. It allows you to style your application rapidly by applying predefined classes directly within your React components.
+​shadcn/ui: A premium collection of beautifully designed, accessible UI components (like dropdowns, modals, and tables). Instead of installing a package, you copy the component code directly into your project, giving you 100% control to customize them using Tailwind.
+
+​4. Scroll & Animation Experience
+​Lenis: A lightweight JavaScript library that replaces the browser's default, rigid scroll with a smooth, fluid, momentum-based scrolling experience.
+​Framer Motion: A React animation library used for micro-interactions, layout transitions, hover effects, and element-level animations as components enter the screen.
+​GSAP (with ScrollTrigger): The most powerful tool for scroll-driven animations. You use this for complex effects like pinning sections to the screen, scrubbing through timelines, or high-performance parallax.
+
+​5. Backend-as-a-Service (BaaS)
+​Supabase: The backbone of your application. It completely replaces the need to write and host a custom Node.js/Express server. It provides:
+​PostgreSQL Database: A highly scalable relational database.
+​Auto-generated APIs: It automatically creates secure ways for your React frontend to query the database.
+​Authentication: Built-in secure user login (email, Google, GitHub, etc.) and session management.
+​File Storage: Secure storage for user uploads, media, and assets.
+​Realtime Subscriptions: WebSockets that allow your React app to instantly update when data in the database changes.
+
+​6. Hosting & Deployment
+​Vercel: The premier hosting platform for React applications. It connects to your GitHub repository and automatically deploys your website to a global edge network every time you push new code.
