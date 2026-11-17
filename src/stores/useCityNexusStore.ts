@@ -20,7 +20,34 @@ import {
 } from '../data/mockData';
 import { cityNexusBackend } from '../lib/supabase';
 
+const getInitialTheme = (): 'light' | 'dark' => {
+  if (typeof window !== 'undefined') {
+    const saved = localStorage.getItem('citynexus_theme') as 'light' | 'dark' | null;
+    if (saved === 'light' || saved === 'dark') {
+      if (saved === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      return saved;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.classList.add('dark');
+      return 'dark';
+    }
+    // Default to dark mode for command-center aesthetic
+    document.documentElement.classList.add('dark');
+    return 'dark';
+  }
+  return 'dark';
+};
+
 interface CityNexusState {
+  // Theme
+  theme: 'light' | 'dark';
+  toggleTheme: () => void;
+  setTheme: (theme: 'light' | 'dark') => void;
+
   // Auth & Session
   currentUser: UserProfile;
   currentUserRole: UserRole;
@@ -42,6 +69,7 @@ interface CityNexusState {
   selectedNodeId: string | null;
   activeDrawer: 'none' | 'node' | 'alert' | 'simulation';
   isLiveStreaming: boolean;
+  isMobileSidebarOpen: boolean;
 
   // Init & Sync
   initializeBackendSync: () => Promise<void>;
@@ -52,6 +80,8 @@ interface CityNexusState {
   setSelectedNodeId: (id: string | null) => void;
   setActiveDrawer: (drawer: 'none' | 'node' | 'alert' | 'simulation') => void;
   toggleLiveStreaming: () => void;
+  setMobileSidebarOpen: (open: boolean) => void;
+  toggleMobileSidebar: () => void;
   
   // Alert Actions
   acknowledgeAlert: (alertId: string, note: string) => Promise<void>;
@@ -70,6 +100,31 @@ interface CityNexusState {
 }
 
 export const useCityNexusStore = create<CityNexusState>((set, get) => ({
+  theme: getInitialTheme(),
+  toggleTheme: () => {
+    const next = get().theme === 'dark' ? 'light' : 'dark';
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('citynexus_theme', next);
+      if (next === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    }
+    set({ theme: next });
+  },
+  setTheme: (theme) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('citynexus_theme', theme);
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    }
+    set({ theme });
+  },
+
   currentUser: INITIAL_USER,
   currentUserRole: 'city_planner',
   setUserRole: (role) => set((s) => ({ currentUser: { ...s.currentUser, role }, currentUserRole: role })),
@@ -88,6 +143,7 @@ export const useCityNexusStore = create<CityNexusState>((set, get) => ({
   selectedNodeId: null,
   activeDrawer: 'none',
   isLiveStreaming: true,
+  isMobileSidebarOpen: false,
 
   initializeBackendSync: async () => {
     try {
@@ -128,6 +184,8 @@ export const useCityNexusStore = create<CityNexusState>((set, get) => ({
   setSelectedNodeId: (id) => set({ selectedNodeId: id, activeDrawer: id ? 'node' : 'none' }),
   setActiveDrawer: (drawer) => set({ activeDrawer: drawer }),
   toggleLiveStreaming: () => set((s) => ({ isLiveStreaming: !s.isLiveStreaming })),
+  setMobileSidebarOpen: (open) => set({ isMobileSidebarOpen: open }),
+  toggleMobileSidebar: () => set((s) => ({ isMobileSidebarOpen: !s.isMobileSidebarOpen })),
 
   acknowledgeAlert: async (alertId, note) => {
     const { currentUser } = get();

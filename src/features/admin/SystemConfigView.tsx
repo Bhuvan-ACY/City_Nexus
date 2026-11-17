@@ -30,13 +30,13 @@ export const SystemConfigView: React.FC = () => {
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#cfd9de]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#cfd9de] dark:border-slate-800">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-[#222222] flex items-center gap-2">
-            <Sliders className="h-6 w-6 text-[#222222]" />
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#222222] dark:text-slate-100 flex items-center gap-2.5">
+            <Sliders className="h-7 w-7 text-[#222222] dark:text-amber-400" />
             Infrastructure Topology & Threshold Configuration
           </h1>
-          <p className="text-xs text-[#71767b] mt-0.5">
+          <p className="text-sm text-[#71767b] dark:text-slate-400 mt-1">
             Calibrate cross-sector cascade transfer factors, alarm thresholds, and network parameters.
           </p>
         </div>
@@ -52,34 +52,34 @@ export const SystemConfigView: React.FC = () => {
                 waterPressureCritical: 2.5,
               });
             }}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-[#e8e8e8]/50 border border-[#cfd9de] text-[#444444] text-xs font-semibold rounded-lg transition-colors"
+            className="flex items-center gap-2 px-3.5 py-2 bg-white dark:bg-slate-800 hover:bg-[#e8e8e8]/50 dark:hover:bg-slate-700 border border-[#cfd9de] dark:border-slate-700 text-[#444444] dark:text-slate-200 text-sm font-semibold rounded-lg transition-colors"
           >
-            <RefreshCw className="h-3.5 w-3.5" />
+            <RefreshCw className="h-4 w-4" />
             Reset Defaults
           </button>
         </div>
       </div>
 
       {notificationSaved && (
-        <div className="p-3 bg-[#e8e8e8] border border-[#cfd9de] text-[#222222] text-xs rounded-lg flex items-center gap-2 font-mono">
+        <div className="p-3.5 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-300 dark:border-emerald-700 text-emerald-800 dark:text-emerald-200 text-sm rounded-lg flex items-center gap-2 font-mono">
           <span>Parameters safely updated and synchronized across all real-time simulation workers.</span>
         </div>
       )}
 
       <form onSubmit={handleSaveConfig} className="space-y-6">
         {/* Cascade Math Calibration */}
-        <div className="bg-white border border-[#cfd9de] rounded-lg p-5 space-y-4">
-          <div className="flex items-center gap-2">
-            <Network className="h-5 w-5 text-[#222222]" />
+        <div className="bg-white dark:bg-[#111827] border border-[#cfd9de] dark:border-slate-800 rounded-lg p-5 sm:p-6 space-y-4">
+          <div className="flex items-center gap-2.5">
+            <Network className="h-6 w-6 text-[#222222] dark:text-slate-200" />
             <div>
-              <h3 className="text-sm font-bold text-[#222222]">Cross-Domain Cascade Transfer Functions</h3>
-              <p className="text-xs text-[#71767b]">Sensitivity coefficients (k) for inter-domain cascade propagation</p>
+              <h3 className="text-base font-bold text-[#222222] dark:text-slate-100">Cross-Domain Cascade Transfer Functions</h3>
+              <p className="text-xs sm:text-sm text-[#71767b] dark:text-slate-400">Sensitivity coefficients (k) for inter-domain cascade propagation</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
-            <div className="bg-[#fafafa] p-4 rounded-lg border border-[#cfd9de] space-y-2">
-              <label className="text-xs text-[#222222] font-bold block">
+            <div className="bg-[#fafafa] dark:bg-[#161f30] p-4 rounded-lg border border-[#cfd9de] dark:border-slate-800 space-y-2">
+              <label className="text-xs sm:text-sm text-[#222222] dark:text-slate-100 font-bold block">
                 Traffic → Power Grid Factor (k_tg)
               </label>
               <input
@@ -89,15 +89,15 @@ export const SystemConfigView: React.FC = () => {
                 max="1.0"
                 value={propagationFactors.trafficToGrid}
                 onChange={(e) => setPropagationFactors({ ...propagationFactors, trafficToGrid: parseFloat(e.target.value) || 0 })}
-                className="w-full bg-white border border-[#cfd9de] rounded-lg p-2 text-xs font-mono text-[#222222] focus:border-[#222222] focus:outline-none"
+                className="w-full bg-white dark:bg-slate-800 border border-[#cfd9de] dark:border-slate-700 rounded-lg p-2.5 text-sm font-mono text-[#222222] dark:text-slate-100 focus:border-[#222222] dark:focus:border-slate-500 focus:outline-none"
               />
-              <span className="text-[10px] text-[#71767b] block">
+              <span className="text-xs text-[#71767b] dark:text-slate-400 block">
                 Current: +{(propagationFactors.trafficToGrid * 100).toFixed(0)}% grid load delta per unit traffic.
               </span>
             </div>
 
-            <div className="bg-[#fafafa] p-4 rounded-lg border border-[#cfd9de] space-y-2">
-              <label className="text-xs text-[#222222] font-bold block">
+            <div className="bg-[#fafafa] dark:bg-[#161f30] p-4 rounded-lg border border-[#cfd9de] dark:border-slate-800 space-y-2">
+              <label className="text-xs sm:text-sm text-[#222222] dark:text-slate-100 font-bold block">
                 Power Grid → Water Factor (k_gw)
               </label>
               <input
@@ -107,15 +107,15 @@ export const SystemConfigView: React.FC = () => {
                 max="1.0"
                 value={propagationFactors.gridToWater}
                 onChange={(e) => setPropagationFactors({ ...propagationFactors, gridToWater: parseFloat(e.target.value) || 0 })}
-                className="w-full bg-white border border-[#cfd9de] rounded-lg p-2 text-xs font-mono text-[#222222] focus:border-[#222222] focus:outline-none"
+                className="w-full bg-white dark:bg-slate-800 border border-[#cfd9de] dark:border-slate-700 rounded-lg p-2.5 text-sm font-mono text-[#222222] dark:text-slate-100 focus:border-[#222222] dark:focus:border-slate-500 focus:outline-none"
               />
-              <span className="text-[10px] text-[#71767b] block">
+              <span className="text-xs text-[#71767b] dark:text-slate-400 block">
                 Current: -{(propagationFactors.gridToWater * 100).toFixed(0)}% water pressure loss per grid trip.
               </span>
             </div>
 
-            <div className="bg-[#fafafa] p-4 rounded-lg border border-[#cfd9de] space-y-2">
-              <label className="text-xs text-[#222222] font-bold block">
+            <div className="bg-[#fafafa] dark:bg-[#161f30] p-4 rounded-lg border border-[#cfd9de] dark:border-slate-800 space-y-2">
+              <label className="text-xs sm:text-sm text-[#222222] dark:text-slate-100 font-bold block">
                 Water → Traffic Disruption (k_wt)
               </label>
               <input
@@ -125,9 +125,9 @@ export const SystemConfigView: React.FC = () => {
                 max="1.0"
                 value={propagationFactors.waterToTraffic}
                 onChange={(e) => setPropagationFactors({ ...propagationFactors, waterToTraffic: parseFloat(e.target.value) || 0 })}
-                className="w-full bg-white border border-[#cfd9de] rounded-lg p-2 text-xs font-mono text-[#222222] focus:border-[#222222] focus:outline-none"
+                className="w-full bg-white dark:bg-slate-800 border border-[#cfd9de] dark:border-slate-700 rounded-lg p-2.5 text-sm font-mono text-[#222222] dark:text-slate-100 focus:border-[#222222] dark:focus:border-slate-500 focus:outline-none"
               />
-              <span className="text-[10px] text-[#71767b] block">
+              <span className="text-xs text-[#71767b] dark:text-slate-400 block">
                 Current: +{(propagationFactors.waterToTraffic * 100).toFixed(0)}% detour congestion on pipe burst.
               </span>
             </div>
@@ -135,61 +135,61 @@ export const SystemConfigView: React.FC = () => {
         </div>
 
         {/* Global Anomaly Thresholds */}
-        <div className="bg-white border border-[#cfd9de] rounded-lg p-5 space-y-4">
-          <div className="flex items-center gap-2">
-            <AlertOctagon className="h-5 w-5 text-[#222222]" />
+        <div className="bg-white dark:bg-[#111827] border border-[#cfd9de] dark:border-slate-800 rounded-lg p-5 sm:p-6 space-y-4">
+          <div className="flex items-center gap-2.5">
+            <AlertOctagon className="h-6 w-6 text-[#222222] dark:text-slate-200" />
             <div>
-              <h3 className="text-sm font-bold text-[#222222]">Automated Alert Trigger Thresholds</h3>
-              <p className="text-xs text-[#71767b]">Operational limits beyond which incident alarms are broadcast</p>
+              <h3 className="text-base font-bold text-[#222222] dark:text-slate-100">Automated Alert Trigger Thresholds</h3>
+              <p className="text-xs sm:text-sm text-[#71767b] dark:text-slate-400">Operational limits beyond which incident alarms are broadcast</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-2">
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-[#71767b]">Traffic Congestion Limit (%)</label>
+            <div className="space-y-1.5">
+              <label className="text-xs sm:text-sm font-bold text-[#71767b] dark:text-slate-400">Traffic Congestion Limit (%)</label>
               <input
                 type="number"
                 value={thresholds.trafficCongestionCritical}
                 onChange={(e) => setThresholds({ ...thresholds, trafficCongestionCritical: parseInt(e.target.value) || 0 })}
-                className="w-full bg-white border border-[#cfd9de] rounded-lg p-2 text-xs font-mono text-[#222222] focus:border-[#222222] focus:outline-none"
+                className="w-full bg-white dark:bg-slate-800 border border-[#cfd9de] dark:border-slate-700 rounded-lg p-2.5 text-sm font-mono text-[#222222] dark:text-slate-100 focus:border-[#222222] dark:focus:border-slate-500 focus:outline-none"
               />
             </div>
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-[#71767b]">Substation Load Warning (%)</label>
+            <div className="space-y-1.5">
+              <label className="text-xs sm:text-sm font-bold text-[#71767b] dark:text-slate-400">Substation Load Warning (%)</label>
               <input
                 type="number"
                 value={thresholds.gridLoadCritical}
                 onChange={(e) => setThresholds({ ...thresholds, gridLoadCritical: parseInt(e.target.value) || 0 })}
-                className="w-full bg-white border border-[#cfd9de] rounded-lg p-2 text-xs font-mono text-[#222222] focus:border-[#222222] focus:outline-none"
+                className="w-full bg-white dark:bg-slate-800 border border-[#cfd9de] dark:border-slate-700 rounded-lg p-2.5 text-sm font-mono text-[#222222] dark:text-slate-100 focus:border-[#222222] dark:focus:border-slate-500 focus:outline-none"
               />
             </div>
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-[#71767b]">Transformer Temp (°C)</label>
+            <div className="space-y-1.5">
+              <label className="text-xs sm:text-sm font-bold text-[#71767b] dark:text-slate-400">Transformer Temp (°C)</label>
               <input
                 type="number"
                 value={thresholds.transformerTempCritical}
                 onChange={(e) => setThresholds({ ...thresholds, transformerTempCritical: parseInt(e.target.value) || 0 })}
-                className="w-full bg-white border border-[#cfd9de] rounded-lg p-2 text-xs font-mono text-[#222222] focus:border-[#222222] focus:outline-none"
+                className="w-full bg-white dark:bg-slate-800 border border-[#cfd9de] dark:border-slate-700 rounded-lg p-2.5 text-sm font-mono text-[#222222] dark:text-slate-100 focus:border-[#222222] dark:focus:border-slate-500 focus:outline-none"
               />
             </div>
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-[#71767b]">Water Pressure Alert (Bar)</label>
+            <div className="space-y-1.5">
+              <label className="text-xs sm:text-sm font-bold text-[#71767b] dark:text-slate-400">Water Pressure Alert (Bar)</label>
               <input
                 type="number"
                 step="0.1"
                 value={thresholds.waterPressureWarning}
                 onChange={(e) => setThresholds({ ...thresholds, waterPressureWarning: parseFloat(e.target.value) || 0 })}
-                className="w-full bg-white border border-[#cfd9de] rounded-lg p-2 text-xs font-mono text-[#222222] focus:border-[#222222] focus:outline-none"
+                className="w-full bg-white dark:bg-slate-800 border border-[#cfd9de] dark:border-slate-700 rounded-lg p-2.5 text-sm font-mono text-[#222222] dark:text-slate-100 focus:border-[#222222] dark:focus:border-slate-500 focus:outline-none"
               />
             </div>
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-[#71767b]">Mains Rupture Floor (Bar)</label>
+            <div className="space-y-1.5">
+              <label className="text-xs sm:text-sm font-bold text-[#71767b] dark:text-slate-400">Mains Rupture Floor (Bar)</label>
               <input
                 type="number"
                 step="0.1"
                 value={thresholds.waterPressureCritical}
                 onChange={(e) => setThresholds({ ...thresholds, waterPressureCritical: parseFloat(e.target.value) || 0 })}
-                className="w-full bg-white border border-[#cfd9de] rounded-lg p-2 text-xs font-mono text-[#222222] focus:border-[#222222] focus:outline-none"
+                className="w-full bg-white dark:bg-slate-800 border border-[#cfd9de] dark:border-slate-700 rounded-lg p-2.5 text-sm font-mono text-[#222222] dark:text-slate-100 focus:border-[#222222] dark:focus:border-slate-500 focus:outline-none"
               />
             </div>
           </div>
@@ -199,7 +199,7 @@ export const SystemConfigView: React.FC = () => {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="flex items-center gap-2 px-5 py-2.5 bg-[#222222] hover:bg-[#0a0a0a] text-white text-xs font-semibold rounded-lg shadow-sm transition-all"
+            className="flex items-center gap-2 px-6 py-2.5 bg-[#222222] dark:bg-blue-600 hover:bg-[#0a0a0a] dark:hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-all"
           >
             <Save className="h-4 w-4" />
             <span>Commit Configuration</span>

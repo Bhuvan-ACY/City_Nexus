@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useCityNexusStore } from '../../stores/useCityNexusStore';
 import { History, Download } from 'lucide-react';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts';
 
@@ -21,6 +22,7 @@ const mockHistoricalData: HistoricalDataPoint[] = [
 ];
 
 export const HistoricalAnalysisView: React.FC = () => {
+  const { theme } = useCityNexusStore();
   const [timeRange, setTimeRange] = useState<'7d' | '30d' | '90d'>('7d');
   const [selectedCorrelation, setSelectedCorrelation] = useState<'traffic-grid' | 'grid-water' | 'all'>('all');
 
@@ -38,27 +40,31 @@ export const HistoricalAnalysisView: React.FC = () => {
     URL.revokeObjectURL(url);
   };
 
+  const isDark = theme === 'dark';
+
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#cfd9de]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#cfd9de] dark:border-slate-800">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-[#222222] flex items-center gap-2">
-            <History className="h-6 w-6 text-[#222222]" />
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#222222] dark:text-slate-100 flex items-center gap-2.5">
+            <History className="h-7 w-7 text-[#222222] dark:text-cyan-400" />
             Historical Cross-Domain Telemetry & Post-Mortem
           </h1>
-          <p className="text-xs text-[#71767b] mt-0.5">
+          <p className="text-sm text-[#71767b] dark:text-slate-400 mt-1">
             Audit multi-domain telemetry trends, replay past cascade events, and export forensic analytics.
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <div className="flex bg-white border border-[#cfd9de] rounded-lg p-1">
+          <div className="flex bg-white dark:bg-[#111827] border border-[#cfd9de] dark:border-slate-800 rounded-lg p-1">
             {(['7d', '30d', '90d'] as const).map((r) => (
               <button
                 key={r}
                 onClick={() => setTimeRange(r)}
-                className={`px-3 py-1 text-xs rounded-md transition-all font-semibold ${
-                  timeRange === r ? 'bg-[#222222] text-white' : 'text-[#444444] hover:text-[#222222]'
+                className={`px-3 py-1.5 text-xs sm:text-sm rounded-md transition-all font-semibold ${
+                  timeRange === r 
+                    ? 'bg-[#222222] dark:bg-slate-700 text-white' 
+                    : 'text-[#444444] dark:text-slate-300 hover:text-[#222222] dark:hover:text-white'
                 }`}
               >
                 {r === '7d' ? 'Last 7 Days' : r === '30d' ? '30 Days' : '90 Days'}
@@ -67,28 +73,30 @@ export const HistoricalAnalysisView: React.FC = () => {
           </div>
           <button
             onClick={handleExportCSV}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-[#e8e8e8]/50 border border-[#cfd9de] text-[#222222] text-xs rounded-lg font-semibold transition-colors"
+            className="flex items-center gap-2 px-3.5 py-2 bg-white dark:bg-slate-800 hover:bg-[#e8e8e8]/50 dark:hover:bg-slate-700 border border-[#cfd9de] dark:border-slate-700 text-[#222222] dark:text-slate-100 text-sm rounded-lg font-semibold transition-colors"
           >
-            <Download className="h-3.5 w-3.5 text-[#444444]" />
+            <Download className="h-4 w-4 text-[#444444] dark:text-slate-300" />
             Export CSV
           </button>
         </div>
       </div>
 
       {/* Correlation Chart */}
-      <div className="bg-white border border-[#cfd9de] rounded-lg p-5">
+      <div className="bg-white dark:bg-[#111827] border border-[#cfd9de] dark:border-slate-800 rounded-lg p-5 sm:p-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
           <div>
-            <h3 className="text-sm font-bold text-[#222222]">Inter-Infrastructure Cross-Correlation Trends</h3>
-            <p className="text-xs text-[#71767b]">Traffic congestion peaks preceding electrical surges and water pressure dips</p>
+            <h3 className="text-base font-bold text-[#222222] dark:text-slate-100">Inter-Infrastructure Cross-Correlation Trends</h3>
+            <p className="text-xs sm:text-sm text-[#71767b] dark:text-slate-400">Traffic congestion peaks preceding electrical surges and water pressure dips</p>
           </div>
-          <div className="flex gap-1.5 p-1 bg-white border border-[#cfd9de] rounded-lg text-xs">
+          <div className="flex gap-1.5 p-1 bg-white dark:bg-slate-800 border border-[#cfd9de] dark:border-slate-700 rounded-lg text-xs sm:text-sm">
             {(['all', 'traffic-grid', 'grid-water'] as const).map((c) => (
               <button
                 key={c}
                 onClick={() => setSelectedCorrelation(c)}
-                className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all ${
-                  selectedCorrelation === c ? 'bg-[#222222] text-white' : 'text-[#444444] hover:text-[#222222]'
+                className={`px-3 py-1.5 rounded-md text-xs sm:text-sm font-semibold transition-all ${
+                  selectedCorrelation === c 
+                    ? 'bg-[#222222] dark:bg-slate-600 text-white' 
+                    : 'text-[#444444] dark:text-slate-300 hover:text-[#222222] dark:hover:text-white'
                 }`}
               >
                 {c === 'all' ? 'All Signals' : c === 'traffic-grid' ? 'Traffic & Grid' : 'Grid & Water'}
@@ -97,24 +105,32 @@ export const HistoricalAnalysisView: React.FC = () => {
           </div>
         </div>
 
-        <div className="h-80 w-full">
+        <div className="h-80 sm:h-96 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={mockHistoricalData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e8e8e8" />
-              <XAxis dataKey="timestamp" stroke="#71767b" fontSize={11} tickFormatter={(val) => val.split(' ')[0]} />
-              <YAxis yAxisId="left" stroke="#71767b" fontSize={11} />
-              <YAxis yAxisId="right" orientation="right" stroke="#71767b" fontSize={11} />
-              <Tooltip contentStyle={{ backgroundColor: '#ffffff', borderColor: '#cfd9de', fontSize: '12px' }} />
-              <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
+              <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#334155' : '#e8e8e8'} />
+              <XAxis dataKey="timestamp" stroke={isDark ? '#94a3b8' : '#71767b'} fontSize={12} tickFormatter={(val) => val.split(' ')[0]} />
+              <YAxis yAxisId="left" stroke={isDark ? '#94a3b8' : '#71767b'} fontSize={12} />
+              <YAxis yAxisId="right" orientation="right" stroke={isDark ? '#94a3b8' : '#71767b'} fontSize={12} />
+              <Tooltip 
+                contentStyle={{ 
+                  backgroundColor: isDark ? '#1e293b' : '#ffffff', 
+                  borderColor: isDark ? '#475569' : '#cfd9de', 
+                  color: isDark ? '#f8fafc' : '#222222',
+                  fontSize: '13px',
+                  borderRadius: '8px',
+                }} 
+              />
+              <Legend wrapperStyle={{ fontSize: '13px', paddingTop: '10px' }} />
 
               {(selectedCorrelation === 'all' || selectedCorrelation === 'traffic-grid') && (
-                <Line yAxisId="left" type="monotone" dataKey="trafficIndex" stroke="#222222" strokeWidth={2} name="Traffic Index" dot={{ r: 3 }} />
+                <Line yAxisId="left" type="monotone" dataKey="trafficIndex" stroke={isDark ? '#38bdf8' : '#222222'} strokeWidth={2.5} name="Traffic Index" dot={{ r: 4 }} />
               )}
               {(selectedCorrelation === 'all' || selectedCorrelation === 'traffic-grid' || selectedCorrelation === 'grid-water') && (
-                <Line yAxisId="left" type="monotone" dataKey="gridLoadMw" stroke="#4b5563" strokeWidth={2} name="Grid Load (MW)" dot={{ r: 3 }} />
+                <Line yAxisId="left" type="monotone" dataKey="gridLoadMw" stroke={isDark ? '#f59e0b' : '#4b5563'} strokeWidth={2.5} name="Grid Load (MW)" dot={{ r: 4 }} />
               )}
               {(selectedCorrelation === 'all' || selectedCorrelation === 'grid-water') && (
-                <Line yAxisId="right" type="monotone" dataKey="waterPressureBar" stroke="#71767b" strokeWidth={2} name="Water Pressure (Bar)" dot={{ r: 3 }} />
+                <Line yAxisId="right" type="monotone" dataKey="waterPressureBar" stroke={isDark ? '#34d399' : '#71767b'} strokeWidth={2.5} name="Water Pressure (Bar)" dot={{ r: 4 }} />
               )}
             </LineChart>
           </ResponsiveContainer>
@@ -122,36 +138,36 @@ export const HistoricalAnalysisView: React.FC = () => {
       </div>
 
       {/* Historical Incidents Table */}
-      <div className="bg-white border border-[#cfd9de] rounded-lg p-5">
-        <h3 className="text-sm font-bold text-[#222222] mb-3">Historical Cascade Events Log</h3>
+      <div className="bg-white dark:bg-[#111827] border border-[#cfd9de] dark:border-slate-800 rounded-lg p-5 sm:p-6">
+        <h3 className="text-base font-bold text-[#222222] dark:text-slate-100 mb-3">Historical Cascade Events Log</h3>
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead className="bg-[#fafafa] text-[#71767b] text-[10px] uppercase border-b border-[#cfd9de]">
+          <table className="w-full text-left text-sm">
+            <thead className="bg-[#fafafa] dark:bg-slate-800/80 text-[#71767b] dark:text-slate-400 text-xs uppercase border-b border-[#cfd9de] dark:border-slate-800">
               <tr>
-                <th className="py-2.5 px-3">Date / Timestamp</th>
-                <th className="py-2.5 px-3">Initial Trigger</th>
-                <th className="py-2.5 px-3">Propagated Domains</th>
-                <th className="py-2.5 px-3">Peak Blast Radius</th>
-                <th className="py-2.5 px-3">Duration</th>
-                <th className="py-2.5 px-3">Resolution Method</th>
+                <th className="py-3 px-3.5">Date / Timestamp</th>
+                <th className="py-3 px-3.5">Initial Trigger</th>
+                <th className="py-3 px-3.5">Propagated Domains</th>
+                <th className="py-3 px-3.5">Peak Blast Radius</th>
+                <th className="py-3 px-3.5">Duration</th>
+                <th className="py-3 px-3.5">Resolution Method</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#e8e8e8] font-mono text-[11px]">
-              <tr className="hover:bg-[#fafafa]">
-                <td className="py-2.5 px-3 text-[#71767b]">2026-11-13 14:22</td>
-                <td className="py-2.5 px-3 font-sans font-medium text-[#222222]">Silk Board Junction Gridlock (Severity 0.92)</td>
-                <td className="py-2.5 px-3 font-sans text-[#444444]">Traffic → Electricity → Water</td>
-                <td className="py-2.5 px-3 font-bold text-[#0a0a0a]">4 Nodes / 2 Zones</td>
-                <td className="py-2.5 px-3 text-[#71767b]">42 mins</td>
-                <td className="py-2.5 px-3 font-sans text-[#222222]">Auto-signal pacing + Feeder load transfer</td>
+            <tbody className="divide-y divide-[#e8e8e8] dark:divide-slate-800 font-mono text-xs sm:text-sm">
+              <tr className="hover:bg-[#fafafa] dark:hover:bg-slate-800/50 transition-colors">
+                <td className="py-3 px-3.5 text-[#71767b] dark:text-slate-400">2026-11-13 14:22</td>
+                <td className="py-3 px-3.5 font-sans font-medium text-[#222222] dark:text-slate-100">Silk Board Junction Gridlock (Severity 0.92)</td>
+                <td className="py-3 px-3.5 font-sans text-[#444444] dark:text-slate-300">Traffic → Electricity → Water</td>
+                <td className="py-3 px-3.5 font-bold text-rose-600 dark:text-rose-400">4 Nodes / 2 Zones</td>
+                <td className="py-3 px-3.5 text-[#71767b] dark:text-slate-400">42 mins</td>
+                <td className="py-3 px-3.5 font-sans text-[#222222] dark:text-slate-200">Auto-signal pacing + Feeder load transfer</td>
               </tr>
-              <tr className="hover:bg-[#fafafa]">
-                <td className="py-2.5 px-3 text-[#71767b]">2026-11-09 17:45</td>
-                <td className="py-2.5 px-3 font-sans font-medium text-[#222222]">Whitefield Feeder Transformer Overheat</td>
-                <td className="py-2.5 px-3 font-sans text-[#444444]">Electricity → Traffic Signals</td>
-                <td className="py-2.5 px-3 font-bold text-[#0a0a0a]">2 Nodes / 1 Zone</td>
-                <td className="py-2.5 px-3 text-[#71767b]">28 mins</td>
-                <td className="py-2.5 px-3 font-sans text-[#222222]">Auxiliary diesel generator dispatch</td>
+              <tr className="hover:bg-[#fafafa] dark:hover:bg-slate-800/50 transition-colors">
+                <td className="py-3 px-3.5 text-[#71767b] dark:text-slate-400">2026-11-09 17:45</td>
+                <td className="py-3 px-3.5 font-sans font-medium text-[#222222] dark:text-slate-100">Whitefield Feeder Transformer Overheat</td>
+                <td className="py-3 px-3.5 font-sans text-[#444444] dark:text-slate-300">Electricity → Traffic Signals</td>
+                <td className="py-3 px-3.5 font-bold text-amber-600 dark:text-amber-400">2 Nodes / 1 Zone</td>
+                <td className="py-3 px-3.5 text-[#71767b] dark:text-slate-400">28 mins</td>
+                <td className="py-3 px-3.5 font-sans text-[#222222] dark:text-slate-200">Auxiliary diesel generator dispatch</td>
               </tr>
             </tbody>
           </table>

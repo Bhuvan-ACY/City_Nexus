@@ -4,6 +4,17 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontSize: {
+        '2xs': ['0.725rem', { lineHeight: '1rem' }],
+        'xs': ['0.825rem', { lineHeight: '1.25rem' }],
+        'sm': ['0.95rem', { lineHeight: '1.45rem' }],
+        'base': ['1.075rem', { lineHeight: '1.65rem' }],
+        'lg': ['1.2rem', { lineHeight: '1.8rem' }],
+        'xl': ['1.35rem', { lineHeight: '1.95rem' }],
+        '2xl': ['1.675rem', { lineHeight: '2.2rem' }],
+        '3xl': ['2.1rem', { lineHeight: '2.6rem' }],
+        '4xl': ['2.6rem', { lineHeight: '3.1rem' }],
+      },
       colors: {
         canvas: '#ffffff',
         'surface-1': '#e8e8e8',
@@ -42,6 +53,7 @@ export default {
       },
       fontFamily: {
         sans: [
+          'Inter',
           'ui-sans-serif',
           'system-ui',
           '-apple-system',

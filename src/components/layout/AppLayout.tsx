@@ -13,15 +13,15 @@ export const AppLayout: React.FC = () => {
   }, [initializeBackendSync]);
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-white text-ink antialiased">
+    <div className="flex h-screen w-screen overflow-hidden bg-white dark:bg-[#0b0f17] text-[#222222] dark:text-[#f3f4f6] antialiased">
       {/* Sidebar Navigation */}
       <Sidebar />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden bg-[#fafafa]">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden bg-[#fafafa] dark:bg-[#0b0f17] relative">
         <Topbar />
         <IncidentTicker />
-        <main className="flex-1 overflow-y-auto p-6 bg-[#fafafa]">
+        <main className="flex-1 overflow-y-auto p-3.5 sm:p-5 lg:p-6 bg-[#fafafa] dark:bg-[#0b0f17]">
           <Outlet />
         </main>
       </div>

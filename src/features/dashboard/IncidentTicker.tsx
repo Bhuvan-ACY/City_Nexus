@@ -12,18 +12,20 @@ export const IncidentTicker: React.FC = () => {
   if (activeAlerts.length === 0) return null;
 
   return (
-    <div className="bg-[#222222] text-white px-4 py-2 flex items-center justify-between text-xs overflow-hidden shrink-0 border-b border-[#0a0a0a]">
+    <div className="bg-[#1e2533] dark:bg-[#070a12] text-white px-5 py-2.5 flex items-center justify-between text-sm overflow-hidden shrink-0 border-b border-slate-700 dark:border-slate-800 transition-colors">
       <div className="flex items-center gap-3 overflow-hidden">
-        <div className="flex items-center gap-1.5 font-bold tracking-wider uppercase text-[10px] shrink-0 bg-white/10 px-2 py-0.5 rounded border border-white/20">
-          <AlertTriangle className="w-3.5 h-3.5 text-white animate-pulse" />
+        <div className="flex items-center gap-2 font-bold tracking-wider uppercase text-xs shrink-0 bg-white/10 px-2.5 py-1 rounded border border-white/20">
+          <AlertTriangle className="w-4 h-4 text-amber-300 animate-pulse" />
           <span>Active Cascade Alarms ({activeAlerts.length})</span>
         </div>
 
         {/* Ticker Items */}
-        <div className="flex items-center gap-6 overflow-x-auto whitespace-nowrap scrollbar-none font-mono text-[11px] text-neutral-200">
+        <div className="flex items-center gap-6 overflow-x-auto whitespace-nowrap scrollbar-none font-mono text-xs text-neutral-200">
           {activeAlerts.map((alert) => (
             <div key={alert.id} className="flex items-center gap-2 shrink-0">
-              <span className="font-bold text-white uppercase text-[10px] px-1.5 py-0.2 rounded bg-white/20">
+              <span className={`font-bold uppercase text-xs px-2 py-0.5 rounded ${
+                alert.severity === 'CRITICAL' ? 'bg-rose-600 text-white' : 'bg-amber-600 text-white'
+              }`}>
                 {alert.severity}
               </span>
               <span className="text-white font-medium">{alert.title}</span>
@@ -36,10 +38,10 @@ export const IncidentTicker: React.FC = () => {
 
       <button
         onClick={() => navigate('/alerts')}
-        className="flex items-center gap-1 text-[11px] font-bold text-white hover:underline shrink-0 pl-4 border-l border-white/20"
+        className="flex items-center gap-1.5 text-xs font-bold text-white hover:text-amber-300 hover:underline shrink-0 pl-4 border-l border-white/20 transition-colors"
       >
         <span>Open Triage</span>
-        <ChevronRight className="w-3.5 h-3.5" />
+        <ChevronRight className="w-4 h-4" />
       </button>
     </div>
   );

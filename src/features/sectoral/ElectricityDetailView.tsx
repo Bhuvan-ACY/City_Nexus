@@ -5,7 +5,7 @@ import { Zap, Flame } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, Bar, CartesianGrid } from 'recharts';
 
 export const ElectricityDetailView: React.FC = () => {
-  const { nodes, zones } = useCityNexusStore();
+  const { nodes, zones, theme } = useCityNexusStore();
   const [selectedZone, setSelectedZone] = useState<string>('all');
 
   const electricNodes = nodes.filter(n => n.domain === 'electricity');
@@ -41,26 +41,28 @@ export const ElectricityDetailView: React.FC = () => {
     };
   });
 
+  const isDark = theme === 'dark';
+
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#cfd9de]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#cfd9de] dark:border-slate-800">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-[#222222] flex items-center gap-2">
-            <Zap className="h-6 w-6 text-[#222222]" />
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#222222] dark:text-slate-100 flex items-center gap-2.5">
+            <Zap className="h-7 w-7 text-[#222222] dark:text-amber-400" />
             Metropolitan Power Grid Telemetry
           </h1>
-          <p className="text-xs text-[#71767b] mt-0.5">
+          <p className="text-sm text-[#71767b] dark:text-slate-400 mt-1">
             Real-time thermal capacity, transmission bus loading, and EV substation stress analytics.
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <label className="text-[11px] font-bold text-[#71767b] uppercase">Zone:</label>
+          <label className="text-xs font-bold text-[#71767b] dark:text-slate-400 uppercase">Zone:</label>
           <select
             value={selectedZone}
             onChange={(e) => setSelectedZone(e.target.value)}
             aria-label="Zone Filter"
-            className="bg-white border border-[#cfd9de] text-xs font-semibold text-[#222222] rounded-lg px-3 py-1.5 focus:border-[#222222] focus:outline-none"
+            className="bg-white dark:bg-slate-800 border border-[#cfd9de] dark:border-slate-700 text-sm font-semibold text-[#222222] dark:text-slate-100 rounded-lg px-3 py-1.5 focus:border-[#222222] dark:focus:border-slate-500 focus:outline-none"
           >
             <option value="all">All Metropolitan Zones</option>
             {zones.map((z) => (
@@ -105,34 +107,58 @@ export const ElectricityDetailView: React.FC = () => {
 
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white border border-[#cfd9de] rounded-lg p-5">
-          <h3 className="text-sm font-bold text-[#222222] mb-1">24-Hour Diurnal Demand Curve</h3>
-          <p className="text-xs text-[#71767b] mb-4">Metropolitan power draw (MW)</p>
-          <div className="h-64">
+        <div className="bg-white dark:bg-[#111827] border border-[#cfd9de] dark:border-slate-800 rounded-lg p-5">
+          <h3 className="text-base font-bold text-[#222222] dark:text-slate-100 mb-1">24-Hour Diurnal Demand Curve</h3>
+          <p className="text-xs sm:text-sm text-[#71767b] dark:text-slate-400 mb-4">Metropolitan power draw (MW)</p>
+          <div className="h-64 sm:h-72">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={mockLoadTimeline}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e8e8e8" />
-                <XAxis dataKey="time" stroke="#71767b" fontSize={11} />
-                <YAxis stroke="#71767b" fontSize={11} domain={[500, 1500]} unit=" MW" />
-                <Tooltip contentStyle={{ backgroundColor: '#ffffff', borderColor: '#cfd9de', fontSize: '12px' }} />
-                <Area type="monotone" dataKey="load" stroke="#222222" strokeWidth={2} fill="#e8e8e8" name="Total MW" />
+                <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#334155' : '#e8e8e8'} />
+                <XAxis dataKey="time" stroke={isDark ? '#94a3b8' : '#71767b'} fontSize={12} />
+                <YAxis stroke={isDark ? '#94a3b8' : '#71767b'} fontSize={12} domain={[500, 1500]} unit=" MW" />
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: isDark ? '#1e293b' : '#ffffff', 
+                    borderColor: isDark ? '#475569' : '#cfd9de', 
+                    color: isDark ? '#f8fafc' : '#222222',
+                    fontSize: '13px',
+                    borderRadius: '8px',
+                  }} 
+                />
+                <Area 
+                  type="monotone" 
+                  dataKey="load" 
+                  stroke={isDark ? '#f59e0b' : '#222222'} 
+                  strokeWidth={2} 
+                  fill={isDark ? '#b45309' : '#e8e8e8'} 
+                  fillOpacity={isDark ? 0.3 : 0.6}
+                  name="Total MW" 
+                />
               </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        <div className="bg-white border border-[#cfd9de] rounded-lg p-5">
-          <h3 className="text-sm font-bold text-[#222222] mb-1">Capacity Allocation by Zone</h3>
-          <p className="text-xs text-[#71767b] mb-4">Current load compared to design limit</p>
-          <div className="h-64">
+        <div className="bg-white dark:bg-[#111827] border border-[#cfd9de] dark:border-slate-800 rounded-lg p-5">
+          <h3 className="text-base font-bold text-[#222222] dark:text-slate-100 mb-1">Capacity Allocation by Zone</h3>
+          <p className="text-xs sm:text-sm text-[#71767b] dark:text-slate-400 mb-4">Current load compared to design limit</p>
+          <div className="h-64 sm:h-72">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={zoneLoadComparison}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e8e8e8" />
-                <XAxis dataKey="name" stroke="#71767b" fontSize={10} />
-                <YAxis stroke="#71767b" fontSize={11} unit=" MW" />
-                <Tooltip contentStyle={{ backgroundColor: '#ffffff', borderColor: '#cfd9de', fontSize: '12px' }} />
-                <Bar dataKey="load" fill="#222222" radius={[4, 4, 0, 0]} name="Load (MW)" />
-                <Bar dataKey="capacity" fill="#cfd9de" radius={[4, 4, 0, 0]} name="Capacity (MW)" />
+                <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#334155' : '#e8e8e8'} />
+                <XAxis dataKey="name" stroke={isDark ? '#94a3b8' : '#71767b'} fontSize={11} />
+                <YAxis stroke={isDark ? '#94a3b8' : '#71767b'} fontSize={12} unit=" MW" />
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: isDark ? '#1e293b' : '#ffffff', 
+                    borderColor: isDark ? '#475569' : '#cfd9de', 
+                    color: isDark ? '#f8fafc' : '#222222',
+                    fontSize: '13px',
+                    borderRadius: '8px',
+                  }} 
+                />
+                <Bar dataKey="load" fill={isDark ? '#38bdf8' : '#222222'} radius={[4, 4, 0, 0]} name="Load (MW)" />
+                <Bar dataKey="capacity" fill={isDark ? '#334155' : '#cfd9de'} radius={[4, 4, 0, 0]} name="Capacity (MW)" />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -140,39 +166,41 @@ export const ElectricityDetailView: React.FC = () => {
       </div>
 
       {/* Substation Table */}
-      <div className="bg-white border border-[#cfd9de] rounded-lg p-5">
-        <h3 className="text-sm font-bold text-[#222222] mb-3">Substation & Feeder Telemetry Table</h3>
+      <div className="bg-white dark:bg-[#111827] border border-[#cfd9de] dark:border-slate-800 rounded-lg p-5">
+        <h3 className="text-base font-bold text-[#222222] dark:text-slate-100 mb-3">Substation & Feeder Telemetry Table</h3>
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead className="bg-[#fafafa] text-[#71767b] text-[10px] uppercase border-b border-[#cfd9de]">
+          <table className="w-full text-left text-sm">
+            <thead className="bg-[#fafafa] dark:bg-slate-800/80 text-[#71767b] dark:text-slate-400 text-xs uppercase border-b border-[#cfd9de] dark:border-slate-800">
               <tr>
-                <th className="py-2.5 px-3">Substation / Asset</th>
-                <th className="py-2.5 px-3">Zone</th>
-                <th className="py-2.5 px-3">Load</th>
-                <th className="py-2.5 px-3">Capacity</th>
-                <th className="py-2.5 px-3">Temp</th>
-                <th className="py-2.5 px-3">Status</th>
+                <th className="py-3 px-3.5">Substation / Asset</th>
+                <th className="py-3 px-3.5">Zone</th>
+                <th className="py-3 px-3.5">Load</th>
+                <th className="py-3 px-3.5">Capacity</th>
+                <th className="py-3 px-3.5">Temp</th>
+                <th className="py-3 px-3.5">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#e8e8e8] font-mono text-[11px]">
+            <tbody className="divide-y divide-[#e8e8e8] dark:divide-slate-800 font-mono text-xs sm:text-sm">
               {filteredNodes.map(node => {
                 const temp = node.currentMetrics?.temperatureC ?? 45;
                 const zone = zones.find(z => z.id === node.zoneId);
 
                 return (
-                  <tr key={node.id} className="hover:bg-[#fafafa]">
-                    <td className="py-2.5 px-3 font-sans font-medium text-[#222222]">{node.name}</td>
-                    <td className="py-2.5 px-3 font-sans text-[#71767b]">{zone?.name ?? node.zoneId}</td>
-                    <td className="py-2.5 px-3 font-bold text-[#222222]">{node.currentValue} {node.unit}</td>
-                    <td className="py-2.5 px-3 text-[#71767b]">{node.capacity}</td>
-                    <td className="py-2.5 px-3">
-                      <span className={`inline-flex items-center gap-1 font-bold ${temp > 65 ? 'text-[#0a0a0a]' : 'text-[#444444]'}`}>
+                  <tr key={node.id} className="hover:bg-[#fafafa] dark:hover:bg-slate-800/50 transition-colors">
+                    <td className="py-3 px-3.5 font-sans font-medium text-[#222222] dark:text-slate-100">{node.name}</td>
+                    <td className="py-3 px-3.5 font-sans text-[#71767b] dark:text-slate-400">{zone?.name ?? node.zoneId}</td>
+                    <td className="py-3 px-3.5 font-bold text-[#222222] dark:text-slate-100">{node.currentValue} {node.unit}</td>
+                    <td className="py-3 px-3.5 text-[#71767b] dark:text-slate-400">{node.capacity}</td>
+                    <td className="py-3 px-3.5">
+                      <span className={`inline-flex items-center gap-1 font-bold ${temp > 65 ? 'text-rose-600 dark:text-rose-400' : 'text-[#444444] dark:text-slate-300'}`}>
                         {temp}°C
                       </span>
                     </td>
-                    <td className="py-2.5 px-3 font-sans">
-                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
-                        node.status === 'CRITICAL' ? 'bg-[#222222] text-white' : 'bg-[#e8e8e8] text-[#444444]'
+                    <td className="py-3 px-3.5 font-sans">
+                      <span className={`px-2.5 py-0.5 rounded text-xs font-bold uppercase ${
+                        node.status === 'CRITICAL' 
+                          ? 'bg-rose-600 text-white' 
+                          : 'bg-[#e8e8e8] dark:bg-slate-800 text-[#444444] dark:text-slate-300'
                       }`}>
                         {node.status}
                       </span>
