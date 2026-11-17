@@ -16,7 +16,7 @@ import { useCityNexusStore } from '../../stores/useCityNexusStore';
 import { cn } from '../../lib/utils';
 
 export const Sidebar: React.FC = () => {
-  const { alerts, currentUser } = useCityNexusStore();
+  const { alerts } = useCityNexusStore();
   const activeAlertsCount = alerts.filter((a) => a.status === 'ACTIVE').length;
 
   const mainNav = [
@@ -42,88 +42,104 @@ export const Sidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="w-64 border-r border-hairline bg-surface-1 flex flex-col h-screen select-none shrink-0">
+    <aside className="w-64 border-r border-[#cfd9de] bg-white flex flex-col h-screen select-none shrink-0">
       {/* Brand Logo */}
-      <div className="h-18 flex items-center px-6 border-b border-hairline gap-3.5 py-4">
-        <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/25 shrink-0">
-          <Activity className="h-6 w-6 text-white stroke-[2.5]" />
+      <div className="h-16 flex items-center px-6 border-b border-[#cfd9de] gap-3 py-3">
+        <div className="w-8 h-8 rounded-lg bg-[#222222] flex items-center justify-center font-bold text-white shrink-0">
+          <Activity className="h-4 w-4 text-white stroke-[2.5]" />
         </div>
         <div>
-          <span className="font-extrabold tracking-tight text-white text-xl block leading-none font-sans">
-            City<span className="text-blue-500">Nexus</span>
+          <span className="font-bold tracking-tight text-[#222222] text-base block leading-none font-sans">
+            CityNexus
           </span>
-          <span className="text-[11px] text-neutral-400 font-medium tracking-wide">Infrastructure Intelligence</span>
+          <span className="text-[11px] text-[#71767b] font-medium tracking-wide">Infrastructure Intelligence</span>
         </div>
       </div>
 
       {/* Main Nav */}
       <div className="flex-1 overflow-y-auto px-3 py-4 space-y-6">
         <div>
-          <p className="px-3 text-[11px] font-semibold tracking-wider text-ink-muted uppercase mb-2">Command Center</p>
-          <nav className="space-y-1">
+          <p className="px-3 text-[10px] font-semibold tracking-wider text-[#71767b] uppercase mb-2">Command Center</p>
+          <div className="space-y-1">
             {mainNav.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
                 className={({ isActive }) =>
                   cn(
-                    'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all group',
+                    'flex items-center justify-between px-3 py-2 rounded-lg text-[13px] font-medium transition-all group',
                     isActive
-                      ? 'bg-surface-2 text-ink border border-hairline shadow-sm'
-                      : 'text-ink-muted hover:text-ink hover:bg-surface-2/50'
+                      ? 'bg-[#222222] text-white shadow-sm'
+                      : 'text-[#444444] hover:bg-[#e8e8e8]/60 hover:text-[#222222]'
                   )
                 }
               >
-                <item.icon className="w-4 h-4 text-ink-muted group-hover:text-ink transition-colors" />
-                <span className="flex-1">{item.name}</span>
-                {item.badge !== undefined && (
-                  <span className="px-1.5 py-0.5 text-xs font-bold rounded-full bg-status-critical/20 text-status-critical border border-status-critical/30 animate-pulse">
-                    {item.badge}
-                  </span>
+                {({ isActive }) => (
+                  <>
+                    <div className="flex items-center gap-2.5">
+                      <item.icon
+                        className={cn(
+                          'w-4 h-4 transition-colors',
+                          isActive ? 'text-white' : 'text-[#71767b] group-hover:text-[#222222]'
+                        )}
+                      />
+                      <span>{item.name}</span>
+                    </div>
+                    {item.badge !== undefined && (
+                      <span
+                        className={cn(
+                          'px-1.5 py-0.5 rounded text-[10px] font-mono font-bold leading-none',
+                          isActive ? 'bg-white text-[#222222]' : 'bg-[#e8e8e8] text-[#222222]'
+                        )}
+                      >
+                        {item.badge}
+                      </span>
+                    )}
+                  </>
                 )}
               </NavLink>
             ))}
-          </nav>
+          </div>
         </div>
 
-        {/* Admin Navigation */}
-        {currentUser.role === 'admin' && (
-          <div>
-            <p className="px-3 text-[11px] font-semibold tracking-wider text-ink-muted uppercase mb-2">Administration</p>
-            <nav className="space-y-1">
-              {adminNav.map((item) => (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  className={({ isActive }) =>
-                    cn(
-                      'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all group',
-                      isActive
-                        ? 'bg-surface-2 text-ink border border-hairline'
-                        : 'text-ink-muted hover:text-ink hover:bg-surface-2/50'
-                    )
-                  }
-                >
-                  <item.icon className="w-4 h-4 text-ink-muted group-hover:text-ink transition-colors" />
-                  <span>{item.name}</span>
-                </NavLink>
-              ))}
-            </nav>
+        {/* Administration Section */}
+        <div>
+          <p className="px-3 text-[10px] font-semibold tracking-wider text-[#71767b] uppercase mb-2">Governance</p>
+          <div className="space-y-1">
+            {adminNav.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                className={({ isActive }) =>
+                  cn(
+                    'flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-medium transition-all group',
+                    isActive
+                      ? 'bg-[#222222] text-white shadow-sm'
+                      : 'text-[#444444] hover:bg-[#e8e8e8]/60 hover:text-[#222222]'
+                  )
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    <item.icon
+                      className={cn(
+                        'w-4 h-4 transition-colors',
+                        isActive ? 'text-white' : 'text-[#71767b] group-hover:text-[#222222]'
+                      )}
+                    />
+                    <span>{item.name}</span>
+                  </>
+                )}
+              </NavLink>
+            ))}
           </div>
-        )}
+        </div>
       </div>
 
-      {/* User Badge */}
-      <div className="p-4 border-t border-hairline bg-surface-1/80">
-        <NavLink to="/profile" className="flex items-center gap-3 hover:bg-surface-2 p-2 rounded-lg transition-colors">
-          <div className="w-9 h-9 rounded-full bg-surface-3 border border-hairline flex items-center justify-center font-bold text-xs text-domain-trafficLight">
-            {currentUser.name.slice(0, 2).toUpperCase()}
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-xs font-semibold text-ink truncate">{currentUser.name}</p>
-            <p className="text-[10px] text-ink-muted capitalize truncate">{currentUser.role.replace('_', ' ')}</p>
-          </div>
-        </NavLink>
+      {/* Footer Info */}
+      <div className="p-4 border-t border-[#cfd9de] text-xs text-[#71767b] flex items-center justify-between">
+        <span className="font-mono text-[10px]">v1.0 • System Ready</span>
+        <span className="h-2 w-2 rounded-full bg-[#222222]" />
       </div>
     </aside>
   );

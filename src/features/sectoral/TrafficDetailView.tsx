@@ -1,78 +1,133 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useCityNexusStore } from '../../stores/useCityNexusStore';
+import { KPICard } from '../../components/shared/KPICard';
 import { Car, Navigation, Gauge, AlertCircle } from 'lucide-react';
+import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 
 export const TrafficDetailView: React.FC = () => {
-  const { zones, nodes } = useCityNexusStore();
+  const { nodes, zones } = useCityNexusStore();
+  const [selectedZone, setSelectedZone] = useState<string>('all');
+
   const trafficNodes = nodes.filter((n) => n.domain === 'traffic');
+  const filteredNodes = selectedZone === 'all'
+    ? trafficNodes
+    : trafficNodes.filter((n) => n.zoneId === selectedZone);
+
+  const avgCongestion = Math.round(
+    trafficNodes.reduce((acc, n) => acc + (n.currentMetrics?.congestionIndex ?? n.currentValue), 0) / (trafficNodes.length || 1)
+  );
+  const avgSpeed = Math.round(
+    trafficNodes.reduce((acc, n) => acc + (n.currentMetrics?.speedKmh ?? 24), 0) / (trafficNodes.length || 1)
+  );
+
+  const mockTimeline = [
+    { time: '06:00', volume: 2200, congestion: 42 },
+    { time: '08:00', volume: 5400, congestion: 88 },
+    { time: '10:00', volume: 4600, congestion: 74 },
+    { time: '12:00', volume: 3800, congestion: 58 },
+    { time: '14:00', volume: 3900, congestion: 60 },
+    { time: '17:00', volume: 5800, congestion: 92 },
+    { time: '19:00', volume: 5200, congestion: 84 },
+    { time: '21:00', volume: 3100, congestion: 48 },
+  ];
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-ink flex items-center gap-2">
-          <Car className="w-6 h-6 text-domain-trafficLight" />
-          <span>Transportation & Traffic Network Operations</span>
-        </h1>
-        <p className="text-sm text-ink-muted">
-          Real-time adaptive intersection queue telemetry, expressway throughput, and signal power dependencies.
-        </p>
-      </div>
-
-      {/* Corridor Breakdown Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <div className="bg-surface-1 border border-hairline p-5 rounded-xl">
-          <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1">
-            Mean Congestion Index
-          </span>
-          <span className="text-3xl font-extrabold text-domain-trafficLight">
-            {Math.round(zones.reduce((a, b) => a + b.metrics.trafficCongestion, 0) / zones.length)}%
-          </span>
-          <span className="text-xs text-status-critical block mt-1">+8.4% above nominal morning peak</span>
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#cfd9de]">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight text-[#222222] flex items-center gap-2">
+            <Car className="h-6 w-6 text-[#222222]" />
+            Urban Mobility & Arterial Traffic Console
+          </h1>
+          <p className="text-xs text-[#71767b] mt-0.5">
+            Real-time congestion indexing, signal cycle monitoring, and EV charging queue stress analysis.
+          </p>
         </div>
-
-        <div className="bg-surface-1 border border-hairline p-5 rounded-xl">
-          <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1">
-            Active Monitored Signals
-          </span>
-          <span className="text-3xl font-extrabold text-ink">{trafficNodes.length * 12} Intersections</span>
-          <span className="text-xs text-ink-muted block mt-1">100% connected to digital twin</span>
-        </div>
-
-        <div className="bg-surface-1 border border-hairline p-5 rounded-xl border-l-4 border-l-status-critical">
-          <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1">
-            Critical Bottleneck
-          </span>
-          <span className="text-lg font-bold text-ink truncate block">Marathahalli Corridor</span>
-          <span className="text-xs text-status-critical block mt-1">91% density (EV charging surge spillover)</span>
+        <div className="flex items-center gap-2">
+          <label className="text-[11px] font-bold text-[#71767b] uppercase">Zone:</label>
+          <select
+            value={selectedZone}
+            onChange={(e) => setSelectedZone(e.target.value)}
+            aria-label="Zone Filter"
+            className="bg-white border border-[#cfd9de] text-xs font-semibold text-[#222222] rounded-lg px-3 py-1.5 focus:border-[#222222] focus:outline-none"
+          >
+            <option value="all">All Metropolitan Zones</option>
+            {zones.map((z) => (
+              <option key={z.id} value={z.id}>{z.name}</option>
+            ))}
+          </select>
         </div>
       </div>
 
-      {/* Asset Table */}
-      <div className="bg-surface-1 border border-hairline rounded-xl p-5 shadow-sm">
-        <h3 className="text-sm font-bold text-ink mb-4">Traffic Nodes Telemetry Inventory</h3>
+      {/* KPI Ribbon */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <KPICard
+          title="Average Congestion Index"
+          value={`${avgCongestion}%`}
+          deltaText="Peak arterial corridors"
+          status={avgCongestion > 80 ? 'CRITICAL' : 'WARNING'}
+          icon={Car}
+        />
+        <KPICard
+          title="Average Traffic Velocity"
+          value={`${avgSpeed} km/h`}
+          deltaText="Nominal urban target: 35 km/h"
+          status={avgSpeed < 20 ? 'CRITICAL' : 'NORMAL'}
+          icon={Gauge}
+        />
+        <KPICard
+          title="Monitored Corridors"
+          value={filteredNodes.length}
+          deltaText="Sensor arrays reporting"
+          status="NORMAL"
+          icon={Navigation}
+        />
+      </div>
+
+      {/* 24-Hour Diurnal Chart */}
+      <div className="bg-white border border-[#cfd9de] rounded-lg p-5">
+        <h3 className="text-sm font-bold text-[#222222] mb-1">24-Hour Congestion & Flow Curve</h3>
+        <p className="text-xs text-[#71767b] mb-4">Volume (Vehicles/Hour) correlated with Congestion Index (%)</p>
+        <div className="h-64">
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart data={mockTimeline}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e8e8e8" />
+              <XAxis dataKey="time" stroke="#71767b" fontSize={11} />
+              <YAxis stroke="#71767b" fontSize={11} domain={[0, 100]} unit="%" />
+              <Tooltip contentStyle={{ backgroundColor: '#ffffff', borderColor: '#cfd9de', fontSize: '12px' }} />
+              <Area type="monotone" dataKey="congestion" stroke="#222222" strokeWidth={2} fill="#e8e8e8" name="Congestion %" />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      {/* Corridor Table */}
+      <div className="bg-white border border-[#cfd9de] rounded-lg p-5">
+        <h3 className="text-sm font-bold text-[#222222] mb-3">Arterial Corridor Telemetry Matrix</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead>
-              <tr className="border-b border-hairline text-ink-muted uppercase text-[10px]">
-                <th className="py-2.5 px-3">Node Asset</th>
+            <thead className="bg-[#fafafa] text-[#71767b] text-[10px] uppercase border-b border-[#cfd9de]">
+              <tr>
+                <th className="py-2.5 px-3">Corridor Junction</th>
                 <th className="py-2.5 px-3">Zone</th>
-                <th className="py-2.5 px-3">Rated Throughput</th>
-                <th className="py-2.5 px-3">Live Flow</th>
-                <th className="py-2.5 px-3 text-right">Status</th>
+                <th className="py-2.5 px-3">Capacity</th>
+                <th className="py-2.5 px-3">Congestion</th>
+                <th className="py-2.5 px-3">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-hairline">
-              {trafficNodes.map((n) => (
-                <tr key={n.id} className="hover:bg-surface-2 transition-colors">
-                  <td className="py-3 px-3 font-bold text-ink">{n.name}</td>
-                  <td className="py-3 px-3 text-ink-muted">{n.zoneId}</td>
-                  <td className="py-3 px-3">{n.capacity}</td>
-                  <td className="py-3 px-3 font-semibold text-ink">{n.currentValue} {n.unit}</td>
-                  <td className="py-3 px-3 text-right">
-                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                      n.status === 'CRITICAL' ? 'bg-status-critical/10 text-status-critical' : 'bg-status-normal/10 text-status-normal'
+            <tbody className="divide-y divide-[#e8e8e8] font-mono text-[11px]">
+              {filteredNodes.map((node) => (
+                <tr key={node.id} className="hover:bg-[#fafafa]">
+                  <td className="py-2.5 px-3 font-sans font-medium text-[#222222]">{node.name}</td>
+                  <td className="py-2.5 px-3 font-sans text-[#71767b]">{node.zoneId}</td>
+                  <td className="py-2.5 px-3 text-[#444444]">{node.capacity}</td>
+                  <td className="py-2.5 px-3 font-bold text-[#222222]">{node.currentValue}%</td>
+                  <td className="py-2.5 px-3 font-sans">
+                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+                      node.status === 'CRITICAL' ? 'bg-[#222222] text-white' : 'bg-[#e8e8e8] text-[#444444]'
                     }`}>
-                      {n.status}
+                      {node.status}
                     </span>
                   </td>
                 </tr>

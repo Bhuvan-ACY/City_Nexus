@@ -1,118 +1,104 @@
 import React, { useState } from 'react';
 import { useCityNexusStore } from '../../stores/useCityNexusStore';
-import { Sliders, Play, RotateCcw, AlertTriangle, ArrowRight, Zap, Car, Droplet } from 'lucide-react';
-import { SimulationResult } from '../../types/domain.types';
+import { KPICard } from '../../components/shared/KPICard';
+import { Sliders, RefreshCw, AlertTriangle, ArrowRight } from 'lucide-react';
+import { DomainType } from '../../types/domain.types';
 
 export const ScenarioSimulationView: React.FC = () => {
-  const { zones, runSimulation, simulationHistory } = useCityNexusStore();
+  const { zones, runSimulation, simulationHistory, resetSimulation } = useCityNexusStore();
 
-  const [domain, setDomain] = useState<'traffic' | 'electricity' | 'utilities'>('traffic');
-  const [zoneId, setZoneId] = useState<string>('ZONE_2');
-  const [perturbation, setPerturbation] = useState<number>(30);
-  const [activeResult, setActiveResult] = useState<SimulationResult | null>(
-    simulationHistory.length > 0 ? simulationHistory[0] : null
-  );
+  const [targetDomain, setTargetDomain] = useState<DomainType>('traffic');
+  const [targetZone, setTargetZone] = useState<string>('ALL');
+  const [perturbationPct, setPerturbationPct] = useState<number>(35);
+
+  const activeResult = simulationHistory[0] || null;
 
   const handleRun = () => {
-    const res = runSimulation({
-      targetDomain: domain,
-      targetZone: zoneId,
-      perturbationPct: perturbation,
+    runSimulation({
+      targetDomain,
+      targetZone,
+      perturbationPct,
     });
-    setActiveResult(res);
-  };
-
-  const handleReset = () => {
-    setPerturbation(0);
   };
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-ink flex items-center gap-2">
-          <Sliders className="w-6 h-6 text-domain-electricityLight" />
-          <span>Cascading Scenario Simulation Sandbox</span>
-        </h1>
-        <p className="text-sm text-ink-muted">
-          Model non-linear perturbations across municipal networks to project downstream secondary and tertiary points of failure.
-        </p>
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#cfd9de]">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight text-[#222222] flex items-center gap-2">
+            <Sliders className="h-6 w-6 text-[#222222]" />
+            Cross-Sector What-If Scenario Sandbox
+          </h1>
+          <p className="text-xs text-[#71767b] mt-0.5">
+            Test localized disruptions and calculate deterministic 1st and 2nd order cascading effects across connected infrastructure.
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          {simulationHistory.length > 0 && (
+            <button
+              onClick={resetSimulation}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-[#e8e8e8]/50 border border-[#cfd9de] text-[#444444] text-xs font-semibold rounded-lg transition-colors"
+            >
+              <RefreshCw className="h-3.5 w-3.5" />
+              Reset Simulation
+            </button>
+          )}
+        </div>
       </div>
 
-      {/* Control Configuration Panel */}
-      <div className="bg-surface-1 border border-hairline rounded-xl p-6 shadow-sm">
-        <h3 className="text-xs font-bold uppercase tracking-wider text-ink-muted mb-4">
-          Simulation Input Parameters
-        </h3>
-
+      {/* Control Panel: Perturbation Sliders */}
+      <div className="bg-white border border-[#cfd9de] rounded-lg p-5">
+        <h2 className="text-sm font-bold text-[#222222] mb-4">Simulation Parameters</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Target Sector */}
+          {/* Target Domain Selector */}
           <div>
-            <label className="block text-xs font-semibold text-ink mb-2">Target Municipal Sector</label>
+            <label className="text-[11px] font-bold text-[#71767b] uppercase tracking-wider block mb-2">
+              Primary Perturbation Domain
+            </label>
             <div className="grid grid-cols-3 gap-2">
-              <button
-                type="button"
-                onClick={() => setDomain('traffic')}
-                className={`py-2 px-3 rounded-lg text-xs font-bold flex flex-col items-center gap-1 border transition-all ${
-                  domain === 'traffic'
-                    ? 'bg-domain-traffic text-white border-domain-traffic shadow-md'
-                    : 'bg-surface-2 text-ink-muted border-hairline hover:text-ink'
-                }`}
-              >
-                <Car className="w-4 h-4" />
-                <span>Traffic</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setDomain('electricity')}
-                className={`py-2 px-3 rounded-lg text-xs font-bold flex flex-col items-center gap-1 border transition-all ${
-                  domain === 'electricity'
-                    ? 'bg-domain-electricity text-white border-domain-electricity shadow-md'
-                    : 'bg-surface-2 text-ink-muted border-hairline hover:text-ink'
-                }`}
-              >
-                <Zap className="w-4 h-4" />
-                <span>Power</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setDomain('utilities')}
-                className={`py-2 px-3 rounded-lg text-xs font-bold flex flex-col items-center gap-1 border transition-all ${
-                  domain === 'utilities'
-                    ? 'bg-domain-utilities text-white border-domain-utilities shadow-md'
-                    : 'bg-surface-2 text-ink-muted border-hairline hover:text-ink'
-                }`}
-              >
-                <Droplet className="w-4 h-4" />
-                <span>Water</span>
-              </button>
+              {(['traffic', 'electricity', 'utilities'] as const).map((d) => (
+                <button
+                  key={d}
+                  onClick={() => setTargetDomain(d)}
+                  className={`py-2 px-3 text-xs font-semibold rounded-lg border capitalize transition-all ${
+                    targetDomain === d
+                      ? 'bg-[#222222] text-white border-[#0a0a0a]'
+                      : 'bg-white text-[#444444] border-[#cfd9de] hover:border-[#808080]'
+                  }`}
+                >
+                  {d}
+                </button>
+              ))}
             </div>
           </div>
 
-          {/* Target Geographic Zone */}
+          {/* Target Zone Selector */}
           <div>
-            <label className="block text-xs font-semibold text-ink mb-2">Target Geographic Sector</label>
+            <label className="text-[11px] font-bold text-[#71767b] uppercase tracking-wider block mb-2">
+              Geographic Focus Zone
+            </label>
             <select
-              value={zoneId}
-              onChange={(e) => setZoneId(e.target.value)}
-              className="w-full bg-surface-2 border border-hairline rounded-lg px-3 py-2.5 text-xs text-ink font-semibold outline-none focus:border-domain-traffic"
+              value={targetZone}
+              onChange={(e) => setTargetZone(e.target.value)}
+              aria-label="Geographic Focus Zone"
+              className="w-full bg-white border border-[#cfd9de] text-xs font-semibold text-[#222222] rounded-lg p-2.5 focus:border-[#222222] focus:outline-none"
             >
-              <option value="ALL">All Metropolitan Zones (Global Event)</option>
+              <option value="ALL">All Metropolitan Zones</option>
               {zones.map((z) => (
-                <option key={z.id} value={z.id}>
-                  {z.name} ({z.code})
-                </option>
+                <option key={z.id} value={z.id}>{z.name}</option>
               ))}
             </select>
           </div>
 
-          {/* Perturbation Magnitude */}
+          {/* Perturbation Percentage Slider */}
           <div>
             <div className="flex justify-between items-center mb-2">
-              <label className="text-xs font-semibold text-ink">Injected Perturbation Delta</label>
-              <span className={`text-xs font-extrabold px-2 py-0.5 rounded ${
-                perturbation > 0 ? 'bg-status-critical/10 text-status-critical' : 'bg-status-normal/10 text-status-normal'
-              }`}>
-                {perturbation > 0 ? `+${perturbation}%` : `${perturbation}%`}
+              <label className="text-[11px] font-bold text-[#71767b] uppercase tracking-wider">
+                Perturbation Magnitude
+              </label>
+              <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-[#e8e8e8] text-[#222222] border border-[#cfd9de]">
+                {perturbationPct > 0 ? `+${perturbationPct}%` : `${perturbationPct}%`}
               </span>
             </div>
             <input
@@ -120,133 +106,125 @@ export const ScenarioSimulationView: React.FC = () => {
               min="-50"
               max="100"
               step="5"
-              value={perturbation}
-              onChange={(e) => setPerturbation(Number(e.target.value))}
-              className="w-full accent-domain-traffic cursor-pointer"
+              value={perturbationPct}
+              onChange={(e) => setPerturbationPct(parseInt(e.target.value))}
+              className="w-full h-1.5 bg-[#e8e8e8] rounded-lg appearance-none cursor-pointer accent-[#222222]"
             />
-            <div className="flex justify-between text-[10px] text-ink-muted mt-1">
-              <span>-50% (Shed/Closure)</span>
-              <span>Baseline (0%)</span>
-              <span>+100% (Surge Shock)</span>
+            <div className="flex justify-between text-[10px] font-mono text-[#71767b] mt-1">
+              <span>-50% (Capacity drop)</span>
+              <span>+100% (Critical surge)</span>
             </div>
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="mt-6 pt-4 border-t border-hairline flex items-center justify-end gap-3">
+        <div className="mt-6 flex justify-end">
           <button
-            type="button"
-            onClick={handleReset}
-            className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-ink-muted hover:text-ink transition-colors"
-          >
-            <RotateCcw className="w-3.5 h-3.5" /> Reset
-          </button>
-          <button
-            type="button"
             onClick={handleRun}
-            className="flex items-center gap-2 px-5 py-2 rounded-lg text-xs font-bold bg-domain-traffic hover:bg-blue-600 text-white shadow-lg shadow-domain-traffic/25 transition-all"
+            className="flex items-center gap-2 px-5 py-2.5 bg-[#222222] hover:bg-[#0a0a0a] text-white text-xs font-semibold rounded-lg shadow-sm transition-all"
           >
-            <Play className="w-4 h-4 fill-white" />
-            <span>Compute Cascading Impact</span>
+            <span>Run Forward Cascade Model</span>
+            <ArrowRight className="h-4 w-4" />
           </button>
         </div>
       </div>
 
-      {/* Results Section */}
+      {/* Simulation Results Section */}
       {activeResult && (
         <div className="space-y-6">
-          {/* Summary Metric Ribbon */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            <div className="bg-surface-1 border border-hairline p-5 rounded-xl">
-              <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1">
-                Simulation Run ID
-              </span>
-              <span className="text-xl font-extrabold text-ink font-mono">{activeResult.runId}</span>
-              <span className="text-[10px] text-ink-muted block mt-1">Executed: {new Date(activeResult.timestamp).toLocaleTimeString()}</span>
-            </div>
-
-            <div className="bg-surface-1 border border-hairline p-5 rounded-xl border-l-4 border-l-status-warning">
-              <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1">
-                Affected Interconnected Assets
-              </span>
-              <span className="text-2xl font-extrabold text-status-warning">{activeResult.affectedAssetsCount} Components</span>
-              <span className="text-[10px] text-ink-muted block mt-1">Spans power substations, traffic queues & pumps</span>
-            </div>
-
-            <div className="bg-surface-1 border border-hairline p-5 rounded-xl border-l-4 border-l-status-critical">
-              <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1">
-                High Failure Risk Assets
-              </span>
-              <span className="text-2xl font-extrabold text-status-critical">{activeResult.criticalRiskCount} Critical</span>
-              <span className="text-[10px] text-ink-muted block mt-1">Projected to breach emergency thresholds</span>
-            </div>
+          {/* Summary KPI Strip */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <KPICard
+              title="At-Risk Assets Impacted"
+              value={activeResult.affectedAssetsCount}
+              deltaText="Calculated via network propagation"
+              status={activeResult.affectedAssetsCount > 4 ? 'CRITICAL' : 'WARNING'}
+              icon={AlertTriangle}
+            />
+            <KPICard
+              title="High Risk Cascades"
+              value={activeResult.criticalRiskCount}
+              deltaText="Exceeding safe operating bounds"
+              status={activeResult.criticalRiskCount > 0 ? 'CRITICAL' : 'NORMAL'}
+              icon={AlertTriangle}
+            />
+            <KPICard
+              title="Tested Perturbation"
+              value={`${activeResult.parameters.perturbationPct > 0 ? '+' : ''}${activeResult.parameters.perturbationPct}%`}
+              unit={activeResult.parameters.targetDomain.toUpperCase()}
+              deltaText={`Target: ${activeResult.parameters.targetZone}`}
+              status="NORMAL"
+              icon={Sliders}
+            />
           </div>
 
-          {/* Baseline vs Projected Comparison Table */}
-          <div className="bg-surface-1 border border-hairline rounded-xl p-5 shadow-sm">
-            <h3 className="text-sm font-bold text-ink mb-1">Projected Sector Impacts</h3>
-            <p className="text-xs text-ink-muted mb-4">Calculated baseline vs post-perturbation performance delta</p>
-
+          {/* Before vs After Projected Impact Table */}
+          <div className="bg-white border border-[#cfd9de] rounded-lg p-5">
+            <h3 className="text-sm font-bold text-[#222222] mb-3">Zone Projected Impact Breakdown</h3>
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
-                <thead>
-                  <tr className="border-b border-hairline text-ink-muted uppercase tracking-wider text-[10px]">
-                    <th className="py-2.5 px-3">Zone</th>
-                    <th className="py-2.5 px-3">Sector</th>
+              <table className="w-full text-left text-xs text-[#222222]">
+                <thead className="text-[11px] text-[#71767b] bg-[#fafafa] uppercase border-b border-[#cfd9de]">
+                  <tr>
+                    <th className="py-2.5 px-3">Metropolitan Zone</th>
+                    <th className="py-2.5 px-3">Primary Domain</th>
                     <th className="py-2.5 px-3">Baseline</th>
-                    <th className="py-2.5 px-3">Projected Value</th>
-                    <th className="py-2.5 px-3 text-right">Variance Delta</th>
+                    <th className="py-2.5 px-3">Projected State</th>
+                    <th className="py-2.5 px-3">Net Delta</th>
+                    <th className="py-2.5 px-3">Risk Assessment</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-hairline">
-                  {activeResult.zoneDeltas.map((d, i) => (
-                    <tr key={i} className="hover:bg-surface-2 transition-colors">
-                      <td className="py-2.5 px-3 font-semibold text-ink">{d.zoneName}</td>
-                      <td className="py-2.5 px-3 uppercase text-[10px] font-bold text-ink-muted">{d.domain}</td>
-                      <td className="py-2.5 px-3">{d.baseline} {d.unit}</td>
-                      <td className="py-2.5 px-3 font-bold text-ink">{d.projected} {d.unit}</td>
-                      <td className="py-2.5 px-3 text-right">
-                        <span className={`px-2 py-0.5 rounded font-extrabold text-xs ${
-                          d.deltaPct > 20
-                            ? 'bg-status-critical/10 text-status-critical'
-                            : d.deltaPct > 0
-                            ? 'bg-status-warning/10 text-status-warning'
-                            : 'bg-status-normal/10 text-status-normal'
-                        }`}>
-                          {d.deltaPct > 0 ? `+${d.deltaPct}%` : `${d.deltaPct}%`}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
+                <tbody className="divide-y divide-[#e8e8e8] font-mono">
+                  {activeResult.zoneDeltas.map((zd) => {
+                    const isSevere = Math.abs(zd.deltaPct) > 25;
+                    return (
+                      <tr key={zd.zoneId} className="hover:bg-[#fafafa]">
+                        <td className="py-2.5 px-3 font-medium font-sans text-[#222222]">{zd.zoneName}</td>
+                        <td className="py-2.5 px-3 capitalize font-sans text-[#444444]">{zd.domain}</td>
+                        <td className="py-2.5 px-3 text-[#71767b]">{zd.baseline} {zd.unit}</td>
+                        <td className="py-2.5 px-3 font-bold text-[#222222]">{zd.projected} {zd.unit}</td>
+                        <td className="py-2.5 px-3">
+                          <span className={zd.deltaPct > 0 ? 'text-[#0a0a0a] font-bold' : 'text-[#444444]'}>
+                            {zd.deltaPct > 0 ? `+${zd.deltaPct}%` : `${zd.deltaPct}%`}
+                          </span>
+                        </td>
+                        <td className="py-2.5 px-3 font-sans">
+                          <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+                            isSevere 
+                              ? 'bg-[#222222] text-white' 
+                              : 'bg-[#e8e8e8] text-[#444444]'
+                          }`}>
+                            {isSevere ? 'Severe Risk' : 'Manageable'}
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
           </div>
 
-          {/* Cascading Chain Visual Breakdown */}
-          {activeResult.cascadingChain.length > 0 && (
-            <div className="bg-surface-1 border border-hairline rounded-xl p-5 shadow-sm">
-              <h3 className="text-sm font-bold text-ink mb-1 flex items-center gap-2">
-                <AlertTriangle className="w-4 h-4 text-status-warning" />
-                <span>Simulated Cascading Chain Propagation</span>
-              </h3>
-              <p className="text-xs text-ink-muted mb-4">Inter-system propagation paths identified by topological traversal</p>
-
-              <div className="space-y-2">
-                {activeResult.cascadingChain.map((chain, idx) => (
-                  <div key={idx} className="flex items-center gap-3 p-3 rounded-lg bg-surface-2 border border-hairline text-xs">
-                    <span className="font-bold text-ink">{chain.sourceName}</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-ink-muted shrink-0" />
-                    <span className="font-bold text-domain-trafficLight">{chain.targetName}</span>
-                    <span className="text-[10px] text-ink-muted capitalize">({chain.domain})</span>
-                    <span className="ml-auto font-extrabold text-status-critical text-xs">
-                      +{chain.impact}% Propagated Load
+          {/* Cascading Chain Visualization */}
+          <div className="bg-white border border-[#cfd9de] rounded-lg p-5">
+            <h3 className="text-sm font-bold text-[#222222] mb-3">Modeled Downstream Ripple Sequence</h3>
+            <div className="space-y-2">
+              {activeResult.cascadingChain.map((chain, idx) => (
+                <div key={idx} className="p-3 rounded-lg border border-[#cfd9de] bg-[#fafafa] flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-[#e8e8e8] text-[#444444] font-bold">
+                      Order {idx + 1}
                     </span>
+                    <span className="font-semibold text-[#222222]">{chain.sourceName}</span>
+                    <ArrowRight className="h-3 w-3 text-[#71767b]" />
+                    <span className="font-semibold text-[#222222]">{chain.targetName}</span>
                   </div>
-                ))}
-              </div>
+                  <div className="flex items-center gap-3">
+                    <span className="capitalize font-mono text-[11px] text-[#71767b]">[{chain.domain}]</span>
+                    <span className="font-mono font-bold text-[#222222]">+{chain.impact}% Stress</span>
+                  </div>
+                </div>
+              ))}
             </div>
-          )}
+          </div>
         </div>
       )}
     </div>

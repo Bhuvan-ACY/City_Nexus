@@ -30,24 +30,15 @@ export const KPICard: React.FC<KPICardProps> = ({
   isPositive = false,
   status,
   icon: Icon,
-  domain,
-  domainColor,
   detailLink = '/dashboard',
   trend,
 }) => {
   const navigate = useNavigate();
-  const effectiveDomain = domainColor || domain || 'traffic';
-
-  const domainStyles = {
-    traffic: 'border-l-4 border-l-domain-traffic',
-    electricity: 'border-l-4 border-l-domain-electricity',
-    utilities: 'border-l-4 border-l-domain-utilities',
-  };
 
   const statusBadge = {
-    NORMAL: 'text-status-normal bg-status-normal/10 border-status-normal/30',
-    WARNING: 'text-status-warning bg-status-warning/10 border-status-warning/30',
-    CRITICAL: 'text-status-critical bg-status-critical/10 border-status-critical/30',
+    NORMAL: 'text-[#444444] bg-[#e8e8e8] border-[#cfd9de]',
+    WARNING: 'text-[#222222] bg-[#e8e8e8] border-[#808080]',
+    CRITICAL: 'text-white bg-[#222222] border-[#0a0a0a]',
   };
 
   const resolvedDelta = deltaText || (trend ? `${trend.direction === 'up' ? '+' : '-'}${trend.percentage}%` : subtext || '');
@@ -56,30 +47,31 @@ export const KPICard: React.FC<KPICardProps> = ({
     <div
       onClick={() => navigate(detailLink)}
       className={cn(
-        'bg-surface-1 border border-hairline p-5 rounded-xl cursor-pointer hover:bg-surface-2 transition-all shadow-sm hover:border-hairline/80 group',
-        domainStyles[effectiveDomain]
+        'bg-white border border-[#cfd9de] p-4 rounded-lg cursor-pointer hover:border-[#444444] transition-all shadow-[0_1px_3px_rgba(0,0,0,0.02)] group flex flex-col justify-between'
       )}
     >
-      <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider">{title}</span>
-        <div className="flex items-center gap-2">
-          <span className={cn('px-2 py-0.5 rounded text-[10px] font-bold border uppercase tracking-wider', statusBadge[status])}>
-            {status}
-          </span>
-          {Icon && <Icon className="w-4 h-4 text-ink-muted group-hover:text-ink transition-colors" />}
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-[11px] font-semibold text-[#71767b] uppercase tracking-wider">{title}</span>
+          <div className="flex items-center gap-1.5">
+            <span className={cn('px-1.5 py-0.5 rounded text-[10px] font-mono font-bold border uppercase tracking-wider', statusBadge[status])}>
+              {status}
+            </span>
+            {Icon && <Icon className="w-3.5 h-3.5 text-[#71767b] group-hover:text-[#222222] transition-colors" />}
+          </div>
+        </div>
+
+        <div className="flex items-baseline gap-1.5 mb-2">
+          <span className="text-2xl font-bold text-[#222222] tracking-tight">{value}</span>
+          {unit && <span className="text-xs font-semibold text-[#71767b]">{unit}</span>}
         </div>
       </div>
 
-      <div className="flex items-baseline gap-2 mb-2">
-        <span className="text-3xl font-extrabold text-ink tracking-tight">{value}</span>
-        {unit && <span className="text-sm font-semibold text-ink-muted">{unit}</span>}
-      </div>
-
-      <div className="flex items-center justify-between text-xs">
-        <span className={cn('font-medium', isPositive ? 'text-status-critical' : 'text-status-normal')}>
+      <div className="flex items-center justify-between text-xs pt-2 border-t border-[#e8e8e8]">
+        <span className={cn('font-mono text-[11px] font-medium text-[#444444]')}>
           {resolvedDelta}
         </span>
-        <span className="text-[11px] text-ink-muted group-hover:underline">View Sector →</span>
+        <span className="text-[11px] font-medium text-[#006be6] group-hover:underline">View Sector →</span>
       </div>
     </div>
   );

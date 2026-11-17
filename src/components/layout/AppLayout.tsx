@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { Topbar } from './Topbar';
@@ -8,20 +8,20 @@ import { useCityNexusStore } from '../../stores/useCityNexusStore';
 export const AppLayout: React.FC = () => {
   const { initializeBackendSync } = useCityNexusStore();
 
-  useEffect(() => {
+  React.useEffect(() => {
     initializeBackendSync();
   }, [initializeBackendSync]);
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-canvas">
+    <div className="flex h-screen w-screen overflow-hidden bg-white text-ink antialiased">
       {/* Sidebar Navigation */}
       <Sidebar />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden bg-[#fafafa]">
         <Topbar />
         <IncidentTicker />
-        <main className="flex-1 overflow-y-auto p-6 bg-canvas">
+        <main className="flex-1 overflow-y-auto p-6 bg-[#fafafa]">
           <Outlet />
         </main>
       </div>

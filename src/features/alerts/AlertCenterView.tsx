@@ -1,194 +1,233 @@
 import React, { useState } from 'react';
 import { useCityNexusStore } from '../../stores/useCityNexusStore';
-import { Bell, ShieldAlert, CheckCircle, Clock, ArrowRight, UserCheck } from 'lucide-react';
-import { Alert } from '../../types/domain.types';
+import { AlertStatus } from '../../types/domain.types';
+import { AlertTriangle, CheckCircle, Clock, ShieldAlert, FileText, Send } from 'lucide-react';
 
 export const AlertCenterView: React.FC = () => {
-  const { alerts, acknowledgeAlert, resolveAlert } = useCityNexusStore();
+  const { alerts, acknowledgeAlert, resolveAlert, currentUserRole } = useCityNexusStore();
 
-  const [filterStatus, setFilterStatus] = useState<'ALL' | 'ACTIVE' | 'ACKNOWLEDGED' | 'RESOLVED'>('ALL');
-  const [selectedAlert, setSelectedAlert] = useState<Alert | null>(alerts.length > 0 ? alerts[0] : null);
-  const [operatorNote, setOperatorNote] = useState('');
+  const [filterStatus, setFilterStatus] = useState<string>('ALL');
+  const [filterSeverity, setFilterSeverity] = useState<string>('ALL');
+  const [selectedAlertId, setSelectedAlertId] = useState<string | null>(null);
+  const [resolutionNote, setResolutionNote] = useState<string>('');
+
+  const selectedAlert = alerts.find((a) => a.id === selectedAlertId) || alerts[0] || null;
 
   const filteredAlerts = alerts.filter((a) => {
-    if (filterStatus === 'ALL') return true;
-    return a.status === filterStatus;
+    if (filterStatus !== 'ALL' && a.status !== filterStatus) return false;
+    if (filterSeverity !== 'ALL' && a.severity !== filterSeverity) return false;
+    return true;
   });
 
-  const handleAcknowledge = () => {
-    if (!selectedAlert) return;
-    acknowledgeAlert(selectedAlert.id, operatorNote || 'Operator reviewed and dispatched assessment crew.');
-    setOperatorNote('');
+  const handleAcknowledge = async (id: string) => {
+    await acknowledgeAlert(id, resolutionNote || 'Acknowledged by operational coordinator');
+    setResolutionNote('');
   };
 
-  const handleResolve = () => {
-    if (!selectedAlert) return;
-    resolveAlert(selectedAlert.id, operatorNote || 'Auxiliary grid restored; nominal pressure verified.');
-    setOperatorNote('');
+  const handleResolve = async (id: string) => {
+    await resolveAlert(id, resolutionNote || 'Incident mitigated and normal tolerances restored');
+    setResolutionNote('');
   };
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-ink flex items-center gap-2">
-          <ShieldAlert className="w-6 h-6 text-status-critical" />
-          <span>Incident Triage & Alert Command Center</span>
-        </h1>
-        <p className="text-sm text-ink-muted">
-          Active threshold breaches enriched with cross-domain cascading impact intelligence.
-        </p>
-      </div>
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#cfd9de]">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight text-[#222222] flex items-center gap-2">
+            <ShieldAlert className="h-6 w-6 text-[#222222]" />
+            Multi-Agency Incident Triage Command
+          </h1>
+          <p className="text-xs text-[#71767b] mt-0.5">
+            Coordinate inter-departmental responses across Traffic, Power Grid, and Water utilities.
+          </p>
+        </div>
 
-      {/* Filter Tabs */}
-      <div className="flex items-center gap-2 border-b border-hairline pb-3">
-        {(['ALL', 'ACTIVE', 'ACKNOWLEDGED', 'RESOLVED'] as const).map((st) => (
-          <button
-            key={st}
-            onClick={() => setFilterStatus(st)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-              filterStatus === st
-                ? 'bg-surface-2 text-ink border border-hairline shadow-sm'
-                : 'text-ink-muted hover:text-ink hover:bg-surface-2/40'
-            }`}
-          >
-            {st} ({st === 'ALL' ? alerts.length : alerts.filter((a) => a.status === st).length})
-          </button>
-        ))}
-      </div>
-
-      {/* Split view: Alert List & Detail Drawer */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Alert List Table */}
-        <div className="lg:col-span-7 bg-surface-1 border border-hairline rounded-xl p-5 shadow-sm space-y-3">
-          {filteredAlerts.length === 0 ? (
-            <div className="text-center py-12 text-ink-muted text-xs">
-              Zero alerts found matching filter criteria.
-            </div>
-          ) : (
-            filteredAlerts.map((alt) => (
-              <div
-                key={alt.id}
-                onClick={() => setSelectedAlert(alt)}
-                className={`p-4 rounded-xl border transition-all cursor-pointer ${
-                  selectedAlert?.id === alt.id
-                    ? 'border-domain-traffic bg-surface-2 shadow-md'
-                    : 'border-hairline bg-surface-1 hover:bg-surface-2/60'
+        {/* Filter Toolbar */}
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="flex items-center gap-1.5 bg-white border border-[#cfd9de] rounded-lg p-1 text-xs">
+            <span className="text-[#71767b] px-2 text-[10px] font-bold uppercase">Status:</span>
+            {(['ALL', 'ACTIVE', 'ACKNOWLEDGED', 'RESOLVED'] as const).map((st) => (
+              <button
+                key={st}
+                onClick={() => setFilterStatus(st)}
+                className={`px-2.5 py-1 rounded-md font-semibold text-[11px] capitalize transition-all ${
+                  filterStatus === st
+                    ? 'bg-[#222222] text-white'
+                    : 'text-[#444444] hover:text-[#222222] hover:bg-[#e8e8e8]/50'
                 }`}
               >
-                <div className="flex items-center justify-between mb-1.5">
-                  <div className="flex items-center gap-2">
-                    <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded uppercase ${
-                      alt.severity === 'CRITICAL' ? 'bg-status-critical text-white' : 'bg-status-warning text-black'
-                    }`}>
-                      {alt.severity}
+                {st.toLowerCase()}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-1.5 bg-white border border-[#cfd9de] rounded-lg p-1 text-xs">
+            <span className="text-[#71767b] px-2 text-[10px] font-bold uppercase">Severity:</span>
+            {(['ALL', 'CRITICAL', 'WARNING'] as const).map((sev) => (
+              <button
+                key={sev}
+                onClick={() => setFilterSeverity(sev)}
+                className={`px-2.5 py-1 rounded-md font-semibold text-[11px] capitalize transition-all ${
+                  filterSeverity === sev
+                    ? 'bg-[#222222] text-white'
+                    : 'text-[#444444] hover:text-[#222222] hover:bg-[#e8e8e8]/50'
+                }`}
+              >
+                {sev.toLowerCase()}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Main Two-Panel Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left List of Incidents */}
+        <div className="lg:col-span-1 space-y-3 max-h-[calc(100vh-220px)] overflow-y-auto pr-1">
+          {filteredAlerts.length === 0 ? (
+            <div className="p-8 text-center bg-white border border-[#cfd9de] rounded-lg text-xs text-[#71767b]">
+              No incident alerts matching selected criteria.
+            </div>
+          ) : (
+            filteredAlerts.map((alert) => {
+              const isSelected = selectedAlert?.id === alert.id;
+              return (
+                <div
+                  key={alert.id}
+                  onClick={() => setSelectedAlertId(alert.id)}
+                  className={`p-3.5 rounded-lg border cursor-pointer transition-all ${
+                    isSelected
+                      ? 'bg-white border-[#222222] shadow-[0_2px_8px_rgba(0,0,0,0.06)]'
+                      : 'bg-white border-[#cfd9de] hover:border-[#808080]'
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase bg-[#222222] text-white">
+                      {alert.severity}
                     </span>
-                    <span className="text-xs font-bold text-ink">{alt.nodeName}</span>
+                    <span className="text-[10px] text-[#71767b] font-mono">
+                      {alert.status}
+                    </span>
                   </div>
-                  <span className="text-[10px] text-ink-muted flex items-center gap-1">
-                    <Clock className="w-3 h-3" />
-                    {new Date(alt.createdAt).toLocaleTimeString()}
-                  </span>
+                  <h4 className="text-xs font-bold text-[#222222] line-clamp-1">{alert.title}</h4>
+                  <p className="text-[11px] text-[#444444] mt-1 line-clamp-2">{alert.description}</p>
+                  <div className="mt-2 pt-2 border-t border-[#e8e8e8] flex items-center justify-between text-[10px] font-mono text-[#71767b]">
+                    <span>Node: {alert.nodeName}</span>
+                    <span className="capitalize">[{alert.domain}]</span>
+                  </div>
                 </div>
-
-                <p className="text-xs text-ink-muted line-clamp-1 mb-2">{alt.title}</p>
-
-                <div className="flex items-center justify-between text-[11px] pt-2 border-t border-hairline/50">
-                  <span className="text-domain-trafficLight font-semibold">
-                    {alt.affectedSystems.length} Interdependent Systems at Risk
-                  </span>
-                  <span className={`font-bold capitalize ${
-                    alt.status === 'ACTIVE'
-                      ? 'text-status-critical'
-                      : alt.status === 'ACKNOWLEDGED'
-                      ? 'text-status-warning'
-                      : 'text-status-normal'
-                  }`}>
-                    Status: {alt.status.toLowerCase()}
-                  </span>
-                </div>
-              </div>
-            ))
+              );
+            })
           )}
         </div>
 
-        {/* Selected Alert Detail Drawer */}
-        <div className="lg:col-span-5 bg-surface-1 border border-hairline rounded-xl p-6 shadow-sm flex flex-col justify-between">
+        {/* Right Detail & Action Drawer */}
+        <div className="lg:col-span-2">
           {selectedAlert ? (
-            <div className="space-y-5">
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] font-extrabold tracking-wider uppercase text-ink-muted">
-                    INCIDENT IDENTIFIER: {selectedAlert.id}
-                  </span>
-                  <span className={`text-xs font-bold px-2 py-0.5 rounded ${
-                    selectedAlert.status === 'ACTIVE'
-                      ? 'bg-status-critical/10 text-status-critical'
-                      : 'bg-status-warning/10 text-status-warning'
-                  }`}>
-                    {selectedAlert.status}
-                  </span>
+            <div className="bg-white border border-[#cfd9de] rounded-lg p-6 space-y-6">
+              {/* Header Info */}
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-[#cfd9de]">
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-[#222222] text-white">
+                      {selectedAlert.severity}
+                    </span>
+                    <span className="text-xs font-mono font-bold text-[#71767b]">
+                      ID: {selectedAlert.id}
+                    </span>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold border border-[#cfd9de] bg-[#e8e8e8] text-[#222222]">
+                      {selectedAlert.status}
+                    </span>
+                  </div>
+                  <h2 className="text-lg font-bold text-[#222222]">{selectedAlert.title}</h2>
+                  <p className="text-xs text-[#71767b] mt-0.5 font-mono">
+                    Origin Asset: {selectedAlert.nodeName} • Zone: {selectedAlert.zoneId} • Domain: {selectedAlert.domain}
+                  </p>
                 </div>
-                <h3 className="text-base font-bold text-ink leading-tight">{selectedAlert.title}</h3>
-                <p className="text-xs text-ink-muted mt-2 leading-relaxed">{selectedAlert.description}</p>
               </div>
 
-              {/* Affected Systems Breakdown */}
-              <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-ink-muted mb-2">
-                  Cross-Domain Impacted Infrastructure
+              {/* Description */}
+              <div className="space-y-2">
+                <h4 className="text-xs font-bold text-[#71767b] uppercase tracking-wider">
+                  Incident Telemetry Assessment
                 </h4>
+                <p className="text-xs text-[#444444] leading-relaxed bg-[#fafafa] p-3.5 rounded-lg border border-[#cfd9de]">
+                  {selectedAlert.description}
+                </p>
+              </div>
+
+              {/* Affected Systems Table */}
+              {selectedAlert.affectedSystems && selectedAlert.affectedSystems.length > 0 && (
                 <div className="space-y-2">
-                  {selectedAlert.affectedSystems.map((aff, i) => (
-                    <div key={i} className="p-2.5 rounded-lg bg-surface-2 border border-hairline text-xs flex items-center justify-between">
-                      <div>
-                        <span className="font-bold text-ink block">{aff.name}</span>
-                        <span className="text-[10px] text-ink-muted capitalize">Sector: {aff.domain}</span>
-                      </div>
-                      <span className="font-extrabold text-status-critical text-xs">
-                        Impact: {Math.round(aff.impactScore * 100)}%
-                      </span>
-                    </div>
-                  ))}
+                  <h4 className="text-xs font-bold text-[#71767b] uppercase tracking-wider">
+                    Downstream Cascade Threat Coupling
+                  </h4>
+                  <div className="border border-[#cfd9de] rounded-lg overflow-hidden">
+                    <table className="w-full text-left text-xs">
+                      <thead className="bg-[#fafafa] text-[#71767b] text-[10px] uppercase border-b border-[#cfd9de]">
+                        <tr>
+                          <th className="py-2 px-3">Impacted Asset</th>
+                          <th className="py-2 px-3">Domain</th>
+                          <th className="py-2 px-3">Vulnerability Score</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-[#e8e8e8] font-mono text-[11px]">
+                        {selectedAlert.affectedSystems.map((aff, i) => (
+                          <tr key={i} className="hover:bg-[#fafafa]">
+                            <td className="py-2 px-3 font-sans font-medium text-[#222222]">{aff.name}</td>
+                            <td className="py-2 px-3 capitalize font-sans text-[#444444]">{aff.domain}</td>
+                            <td className="py-2 px-3 font-bold text-[#0a0a0a]">{aff.impactScore}% Threat</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-              </div>
+              )}
 
-              {/* Resolution / Operator Notes */}
-              <div>
-                <label className="block text-xs font-semibold text-ink mb-2">Operator Action / Response Dispatch Note</label>
-                <textarea
-                  rows={3}
-                  value={operatorNote}
-                  onChange={(e) => setOperatorNote(e.target.value)}
-                  placeholder="Enter dispatch unit orders or containment actions..."
-                  className="w-full bg-surface-2 border border-hairline rounded-lg p-3 text-xs text-ink outline-none focus:border-domain-traffic resize-none"
-                />
-              </div>
-
-              {/* Operational Action Buttons */}
-              <div className="flex items-center gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={handleAcknowledge}
-                  disabled={selectedAlert.status !== 'ACTIVE'}
-                  className="flex-1 py-2 rounded-lg bg-surface-2 hover:bg-surface-3 disabled:opacity-40 border border-hairline text-xs font-bold text-ink transition-colors flex items-center justify-center gap-1.5"
-                >
-                  <UserCheck className="w-3.5 h-3.5" />
-                  <span>Acknowledge</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={handleResolve}
-                  disabled={selectedAlert.status === 'RESOLVED'}
-                  className="flex-1 py-2 rounded-lg bg-status-normal hover:bg-emerald-600 disabled:opacity-40 text-xs font-bold text-white transition-colors flex items-center justify-center gap-1.5 shadow-md shadow-status-normal/20"
-                >
-                  <CheckCircle className="w-3.5 h-3.5" />
-                  <span>Resolve Incident</span>
-                </button>
+              {/* Triage Action Box */}
+              <div className="space-y-3 pt-4 border-t border-[#cfd9de]">
+                <h4 className="text-xs font-bold text-[#71767b] uppercase tracking-wider">
+                  Inter-Departmental Response Log
+                </h4>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={resolutionNote}
+                    onChange={(e) => setResolutionNote(e.target.value)}
+                    placeholder="Enter dispatch notes, signal adjustments, or feeder load transfers..."
+                    className="flex-1 bg-white border border-[#cfd9de] text-xs text-[#222222] rounded-lg px-3 py-2.5 focus:border-[#222222] focus:outline-none"
+                  />
+                  {selectedAlert.status !== 'RESOLVED' && (
+                    <>
+                      {selectedAlert.status === 'ACTIVE' && (
+                        <button
+                          onClick={() => handleAcknowledge(selectedAlert.id)}
+                          className="px-4 py-2.5 bg-[#e8e8e8] hover:bg-[#cfd9de] text-[#222222] font-semibold text-xs rounded-lg transition-colors border border-[#cfd9de]"
+                        >
+                          Acknowledge
+                        </button>
+                      )}
+                      <button
+                        onClick={() => handleResolve(selectedAlert.id)}
+                        className="px-4 py-2.5 bg-[#222222] hover:bg-[#0a0a0a] text-white font-semibold text-xs rounded-lg transition-colors"
+                      >
+                        Resolve Incident
+                      </button>
+                    </>
+                  )}
+                </div>
+                {selectedAlert.resolutionNote && (
+                  <div className="p-3 bg-[#fafafa] border border-[#cfd9de] rounded-lg text-xs font-mono text-[#444444]">
+                    <span className="font-bold text-[#222222]">Resolved By {selectedAlert.resolvedBy || 'Coordinator'}:</span> {selectedAlert.resolutionNote}
+                  </div>
+                )}
               </div>
             </div>
           ) : (
-            <div className="text-center py-20 text-ink-muted text-xs">
-              Select an alert from the incident stream to view details.
+            <div className="p-12 text-center bg-white border border-[#cfd9de] rounded-lg text-xs text-[#71767b]">
+              Select an incident from the list to view telemetry and execute response workflows.
             </div>
           )}
         </div>

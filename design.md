@@ -1,597 +1,468 @@
 ---
 version: alpha
-name: Framer
-website: "https://www.framer.com"
-description: "A confident dark-canvas builder marketing site that treats the page like a working artboard — pure black surfaces, white display type set in GT Walsheim Medium with aggressive negative tracking, and a single confident blue (#0099ff) reserved for hyperlinks and selection states. The page rhythm is broken by oversized vibrant gradient atmosphere panels — magenta, violet, orange spotlights — that act as living showcase tiles, not decoration. Every CTA is a white pill on dark; every card is a translucent or charcoal surface; every section title pulls letter-spacing tight enough to feel like a poster."
+name: "Drizzle ORM"
+website: "https://orm.drizzle.team"
+description: >-
+  A TypeScript ORM whose marketing site runs entirely on a cool dark-gray scale — charcoal near-black ink (#222222), mid-gray text (#444444), off-white card surfaces (#ffffff/#fafafa) — with no declared primary brand color anywhere in the CSS custom properties. The hero headline "ORM for you to settle" runs system-ui at 40px / weight 700 with animated stacked emoji above it. Two monospace families share page duties: Menlo at 9.75px for inline code chips and a system mono at 12px for the sidebar tree. The only chromatic moment is a cobalt link color (#006be6, 20 occurrences) for external references. Drizzle's geometry is 8px-dominant with a 2px base for syntax annotation chips, matching the no-fuss documentation aesthetic of a tool that ships fast and annotates later.
 
 seo:
-  title: "Framer Design Tokens: Pure Black and GT Walsheim"
-  metaDescription: "Framer as a working artboard: pure black, white GT Walsheim display, blue for links only and vivid gradient spotlights. Tokens for React and AI tools."
+  title: "Drizzle ORM's All-Gray Design System for React"
+  metaDescription: "Drizzle's site runs on dark grays with no primary color: #222222 ink, system-ui display, Menlo mono and 8px corners. For React, Next.js and AI tools."
   highlights:
-    - "Pure black canvas — #090909 carries hero, pricing, FAQ and footer; no light-mode interludes anywhere on the marketing site"
-    - "Display tracking at -5.5px — 110px GT Walsheim Medium pulled to 5% negative letter-spacing is the brand voice, not a stylistic accident"
-    - "Single signal blue — #0099ff appears only on hyperlinks, focus rings and selected states; never a button fill"
-    - "Gradient spotlight cards — magenta, violet, orange and coral tiles drop into monochrome grids as atmosphere, not section grounds"
-    - "Inter Variable with cv01/05/09/11 and ss03/ss07 — OpenType character variants are the body voice, not a stylistic afterthought"
+    - "No primary brand color — the CSS custom properties declare no brand hex; the entire system runs on a cool achromatic gray scale with a single cobalt link accent"
+    - "Emoji as the brand illustration layer — the hero stacks three drizzle emoji above the headline rather than custom SVG artwork or photography"
+    - "Two-speed monospace — Menlo at 9.75px for inline code chips and a system mono stack at 12px for sidebar tree entries; monospace at tiny sizes signals the ORM's SQL-native philosophy"
+    - "8px dominant radius (141 occurrences) — card geometry is consistently mid-soft with a 2px base tier for syntax annotation chips"
+    - "Gray scale only — no gradient, no shadow illustration, no chromatic accent beyond the cobalt link color; the page reads as a documentation entry point, not a marketing surface"
   tags:
-    - "Design & Creative Tools"
+    - "Backend, Database & DevOps"
     - "Developer Tools & IDEs"
-  lastUpdated: "2026-05-12"
+  lastUpdated: "2026-05-19"
   author:
     name: "Dov Azencot"
     url: "https://x.com/dovazencot"
   opening: |
-    Framer's marketing canvas reads like a working artboard. The dominant surface is near-pure black with a faint warmth, and on top of it sits oversized white display type in GT Walsheim Medium with letter-spacing pulled to extreme negative values — 5.5px on the 110px hero, 4.25px on the 85px section openers. There is no light mode. Every band of the page chooses between black canvas or a charcoal lift; no white interludes break the rhythm. The single chromatic accent is a sharp signal blue (#0099ff), reserved exclusively for hyperlinks, focus rings, and selection states. What separates Framer from other dark systems is the rhythm break: oversized magenta, violet, orange and coral gradient panels drop into monochrome card grids as living atmosphere tiles, not section backgrounds.
+    Drizzle's marketing page does not have a brand color. The CSS custom properties expose no --primary, no --accent, no brand hex in any variable name — the entire rendered surface runs on a cool dark-gray scale anchored by near-black charcoal ink (#222222) and mid-gray body text (#444444). The hero headline "ORM for you to settle" uses system-ui at 40px / weight 700 in the same charcoal as every other heading on the page, and the animated stacked emoji above it (three drizzle water-drop emoji) are the only non-gray visual decoration. Unlike Prisma, which holds a single teal CTA in reserve, or PlanetScale, which pairs a brand violet with a white canvas, Drizzle withholds color entirely and names the tool after the weather. The restraint is the brand.
 
-    This page packages the whole system into a single DESIGN.md file built on the Google Labs spec. Inside: 18 color tokens grouped into brand, surface, text, semantic and signature gradient sets; 13 type styles running from a 110px display down to 12px micro; 8 corner radii from a 4px utility chip up to a 100px pill; 9 spacing increments on a non-standard 5px base; and 22 components covering pill buttons, pricing tabs, text inputs, mockup tiles, gradient spotlight cards, comparison rows, FAQ, top nav and footer. Every token is a quoted string ready to paste into Tailwind config, CSS variables, or your own component library.
+    The DESIGN.md file packages this into machine-readable tokens. Inside: 15 color tokens on a strict achromatic gray ladder from near-black #222222 to off-white #ffffff, plus a cobalt link accent #006be6 (the system's only chromatic moment, appearing 20 times on external reference links); 13 typography tokens using the system-ui sans stack for all prose and Menlo/system-mono for two distinct code tiers; 8 radius values dominated by 8px (141 occurrences); 9 spacing values on a mixed 8–12px rhythm; and 16 component definitions covering the gray-surface release badge, the two-column performance benchmark panel, the runtime integration chip grid, and the Drizzle Studio data-table panel.
 
-    Feed the file to Claude, Cursor, or GitHub Copilot and the agent reproduces Framer's discipline — the white pill CTA, the charcoal surface lift, the binary ink-to-ink-muted hierarchy, the scarce gradient spotlight — rather than a generic dark SaaS theme. The system is worth studying because it shows how far typography and surface lift can carry a brand when the palette is monochrome plus one signal color. Where lesser dark themes lean on neon or rainbow gradients, Framer leans on negative tracking and a single confident blue.
+    Feed this file to Claude or Cursor and it reproduces Drizzle's specific moves: no brand color, only cobalt links; system-ui headlines at modest weights rather than a display typeface; monospace at 9–12px for inline code and sidebar trees; and 8px card geometry throughout. The one move worth borrowing for any documentation-first tool: the willingness to make the page look like a very good README rather than a marketing site. Drizzle reads like a tool by developers who respect that their audience will evaluate the code, not the colors.
   related:
     - href: "/design"
       title: "Browse all design systems"
       description: "The full directory of DESIGN.md files on shadcn.io, with live mockups for each."
-    - href: "https://www.framer.com/"
-      title: "Framer.com"
-      description: "The live site this spec was extracted from — see the gradient spotlight cards and display tracking in motion."
+    - href: "https://orm.drizzle.team"
+      title: "Drizzle ORM — official site"
+      description: "Drizzle ORM's public marketing site — the source of truth for the live tokens captured in this file."
     - href: "https://github.com/google-labs-code/design.md"
       title: "The DESIGN.md specification"
       description: "Google Labs' open spec for machine-readable design system files — the format this page is built on."
   questions:
     - id: "primary-color"
-      title: "What is Framer's primary brand color?"
-      answer: "Framer's brand is monochrome — pure white (#ffffff) on near-black canvas (#090909). The only chromatic accent is a sharp sky blue (#0099ff), used scarcely for hyperlinks, focus rings on inputs, and selected states. It never appears as a button fill or section background. Surface lift through charcoal stops (#141414 to #1c1c1c) carries hierarchy on dark, not chromatic fills."
-    - id: "dark-mode"
-      title: "Does Framer's design system have a light mode?"
-      answer: "No. Framer's marketing site is dark-only — there is no light-mode adaptation documented because the brand IS dark. The canvas at #090909 carries hero, pricing, FAQ and footer alike. A pure white token (#ffffff) exists as the surface of light-on-dark pill CTAs and a small set of light-mode template thumbnails embedded in the showcase grid, but the page itself never inverts."
+      title: "Does Drizzle have a primary brand color?"
+      answer: "No — Drizzle's CSS custom properties expose no brand color token. There is no --primary, no --brand, no --accent in the variable namespace. The entire rendered marketing surface runs on an achromatic gray scale: near-black #222222 for headlines and ink text (978 text occurrences), mid-gray #444444 for secondary labels (also 978), dark charcoal #282b3b for sidebar chrome, off-white #ffffff/#fafafa for card surfaces and backgrounds, and border gray #e8e8e8 for hairlines. The only chromatic moment is cobalt blue #006be6, which appears on 10 external reference link texts and 10 link borders — clearly a browser-default-adjacent link color rather than a brand accent. The page reads as intentionally monochrome."
     - id: "typography"
-      title: "What typography does Framer use, and what should I use if GT Walsheim isn't available?"
-      answer: "Framer's display typeface is GT Walsheim Medium (a commercial license), pulled to extreme negative letter-spacing — 5.5px on the 110px hero, 4.25px on the 85px section openers, 3.1px on the 62px sub-section openers. Body type is Inter Variable with character variants cv01, cv05, cv09, cv11 plus stylistic sets ss03 and ss07 enabled. Open-source substitutes include Mona Sans, Geist, or Inter at weight 600–700 with manually tightened tracking. Mona Sans's hairline weights at 100–300 are particularly close to Framer's cleaner section openers."
-    - id: "gradient-cards"
-      title: "How does Framer use those gradient spotlight cards?"
-      answer: "The gradient panels — magenta (#d44df0), violet (#6a4cf5), orange (#ff7a3d) and coral (#ff5577) — are individual oversized cards, never section backgrounds. They drop into otherwise monochrome card grids as atmosphere tiles, with 30px (rounded.xxl) corners that mark them as softer than the 20px content cards on purpose. One or two per long page is the spec; three is a moodboard. The hex values in the file are anchor colors — the production cards layer them as linear-gradient strings on individual elements."
+      title: "What typeface does Drizzle use?"
+      answer: "Drizzle uses the system-ui fallback stack for all prose, headings, and navigation — there is no custom or branded typeface loaded. The hero headline runs system-ui at 40px / weight 700 for the largest display moment, and section headings at 32px / weight 600. Body copy runs at 14px / weight 400 for the primary reading tier. The only non-system font is Menlo (with a system monospace fallback) at 9.75px / weight 500 for inline code chips, and a system mono stack at 12px for sidebar navigation tree entries. On macOS, system-ui resolves to San Francisco; on Windows to Segoe UI; on Linux to Noto Sans. The page renders slightly differently across platforms by design — Drizzle appears to have made no effort to normalize the reading experience across operating systems."
+    - id: "card-rounding"
+      title: "What corner-radius does Drizzle use on cards and components?"
+      answer: "The dominant radius is 8px (141 occurrences), used on feature cards, the performance benchmark panels, the studio data-table card, and the runtime integration chip grid. The second tier is 2px (77 occurrences), used on inline code annotation chips and the syntax tokens inside code blocks. A 50% radius (50 occurrences) applies to the avatar circles in the team and contributor strip. 5px (25 occurrences) appears on the release badge chip, 12px (22 occurrences) on the search modal overlay, and 4px (20 occurrences) on secondary surface elements. The system does not use a pill radius on buttons or CTAs — the maximum non-circular radius is 12px."
+    - id: "performance-benchmark"
+      title: "What does the performance benchmark section look like in Drizzle's design?"
+      answer: "The benchmark section is a two-panel comparison layout showing avg queries/second and avg latency (min/max) for Drizzle versus competitors (Bun SQLite at 13k vs Drizzle at 13k, etc.). Each panel is a gray hairline-bordered card with an embedded line/area chart rendered in a light blue/gray fill. The panels share a 2-column grid layout with 8px internal padding and system-ui labels at 12px / weight 500. The numbers ('5.3k', '2.2k') render in system-ui at 14–16px / weight 700. There is no brand color in the charts — the comparison lines appear in near-neutral blue-grays. The \"Go to benchmark results >\" CTA at the bottom is the page's closest analog to a primary CTA button: dark fill (#222222 or #0a0a0a), white text, 8px radius."
     - id: "use-in-project"
-      title: "Can I use this DESIGN.md to build my own React app?"
-      answer: "Yes — the file is designed to be fed into Claude, Cursor, or any AI tool that reads structured design tokens. The agent reproduces Framer's restraint (white pill CTAs, surface-lift hierarchy, scarce blue, gradient spotlight cards as atmosphere) rather than a generic dark SaaS theme. You can also reference the tokens directly: every color, type style, radius and spacing value is a quoted value ready to paste into Tailwind config, CSS variables, or your own component library."
-    - id: "known-gaps"
-      title: "What's missing from this DESIGN.md spec?"
-      answer: "The exact gradient stops for the spotlight cards are derived from screenshot pixels rather than CSS variables — treat the documented gradient-* hex values as base anchors, not exact gradient specs. Form-field validation and error styling isn't visible because no error states render in the static screenshots. Dark mode is the only mode — no light-mode adaptation is documented. The marketplace template detail page returned sparser CSS variable data than other pages; surface tokens for that page were inferred from the matching home and gallery treatment rather than extracted directly."
+      title: "Can I use this DESIGN.md to build a Drizzle-style documentation or ORM marketing site?"
+      answer: "Yes — the file is designed to be fed into Claude, Cursor, or any AI tool that reads structured design tokens. The agent will reproduce Drizzle's specific moves: achromatic gray scale with no brand accent, system-ui headlines at 40px / weight 700, Menlo at 9.75px for inline code chips, 8px card rounding, and cobalt links as the only chromatic moment. All token references resolve cleanly: {colors.ink} for near-black text, {colors.canvas} for the off-white background, {colors.hairline} for card borders. One important caveat: the 'no brand color' pattern only reads as a deliberate aesthetic choice if the documentation is genuinely dense and technical. For a landing page targeting non-technical buyers, the pattern risks reading as an unfinished design rather than a confident one."
+
+mockups:
+  - "marketing-hero"
+  - "dashboard-card-grid"
 
 colors:
-  primary: "#ffffff"
-  on-primary: "#000000"
-  accent-blue: "#0099ff"
-  ink: "#ffffff"
-  ink-muted: "#999999"
-  canvas: "#090909"
-  surface-1: "#141414"
-  surface-2: "#1c1c1c"
-  hairline: "#262626"
-  hairline-soft: "#1a1a1a"
-  inverse-canvas: "#ffffff"
-  inverse-ink: "#000000"
-  gradient-magenta: "#d44df0"
-  gradient-violet: "#6a4cf5"
-  gradient-orange: "#ff7a3d"
-  gradient-coral: "#ff5577"
-  semantic-success: "#22c55e"
+  ink: "#222222"
+  ink-dark: "#0a0a0a"
+  ink-mid: "#282b3b"
+  ink-muted: "#444444"
+  ink-secondary: "#4b5563"
+  ink-tertiary: "#71767b"
+  ink-faint: "#909090"
+  canvas: "#ffffff"
+  surface-1: "#e8e8e8"
+  surface-muted: "#808080"
+  surface-dark: "#333333"
+  hairline: "#cfd9de"
+  cobalt: "#006be6"
+  cobalt-light: "#3e7ff0"
+  shadow: "#000000"
 
 typography:
-  display-xxl:
-    fontFamily: GT Walsheim Framer Medium
-    fontSize: 110px
-    fontWeight: 500
-    lineHeight: 0.85
-    letterSpacing: -5.5px
   display-xl:
-    fontFamily: GT Walsheim Medium
-    fontSize: 85px
-    fontWeight: 500
-    lineHeight: 0.95
-    letterSpacing: -4.25px
-    fontFeature: ss02
-  display-lg:
-    fontFamily: GT Walsheim Medium
-    fontSize: 62px
-    fontWeight: 500
-    lineHeight: 1.00
-    letterSpacing: -3.1px
-    fontFeature: ss02
-  display-md:
-    fontFamily: GT Walsheim Medium
-    fontSize: 32px
-    fontWeight: 500
-    lineHeight: 1.13
-    letterSpacing: -1.0px
-  headline:
-    fontFamily: Inter
-    fontSize: 22px
+    fontFamily: "ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Noto Sans\", Arial, sans-serif"
+    fontSize: 40px
     fontWeight: 700
-    lineHeight: 1.20
-    letterSpacing: -0.8px
-    fontFeature: cv05
-  subhead:
-    fontFamily: Inter Variable
-    fontSize: 24px
-    fontWeight: 400
-    lineHeight: 1.30
-    letterSpacing: -0.01px
-    fontFeature: cv11
-  body-lg:
-    fontFamily: Inter Variable
+    lineHeight: 48px
+    letterSpacing: 0
+  display-lg:
+    fontFamily: "ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Noto Sans\", Arial, sans-serif"
+    fontSize: 32px
+    fontWeight: 600
+    lineHeight: 48px
+    letterSpacing: 0
+  heading-md:
+    fontFamily: "ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Noto Sans\", Arial, sans-serif"
+    fontSize: 20px
+    fontWeight: 500
+    lineHeight: 30px
+    letterSpacing: 0
+  heading-sm:
+    fontFamily: "ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Noto Sans\", Arial, sans-serif"
     fontSize: 18px
+    fontWeight: 600
+    lineHeight: 27px
+    letterSpacing: 0
+  body-lg:
+    fontFamily: "ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Noto Sans\", Arial, sans-serif"
+    fontSize: 16px
     fontWeight: 400
-    lineHeight: 1.30
-    letterSpacing: -0.18px
-    fontFeature: cv11
-  body:
-    fontFamily: Inter Variable
-    fontSize: 15px
-    fontWeight: 400
-    lineHeight: 1.30
-    letterSpacing: -0.15px
-    fontFeature: cv11
-  body-sm:
-    fontFamily: Inter Variable
+    lineHeight: 24px
+    letterSpacing: 0
+  body-md:
+    fontFamily: "ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Noto Sans\", Arial, sans-serif"
     fontSize: 14px
-    fontWeight: 500
-    lineHeight: 1.40
-    letterSpacing: -0.14px
-    fontFeature: cv11
-  caption:
-    fontFamily: Inter Variable
-    fontSize: 13px
-    fontWeight: 500
-    lineHeight: 1.20
-    letterSpacing: -0.13px
-    fontFeature: cv11
-  micro:
-    fontFamily: Inter Variable
+    fontWeight: 400
+    lineHeight: 21px
+    letterSpacing: 0
+  body-bold:
+    fontFamily: "ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Noto Sans\", Arial, sans-serif"
+    fontSize: 14px
+    fontWeight: 700
+    lineHeight: 21px
+    letterSpacing: 0
+  label-md:
+    fontFamily: "ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Noto Sans\", Arial, sans-serif"
+    fontSize: 14px
+    fontWeight: 600
+    lineHeight: 21px
+    letterSpacing: 0
+  label-sm:
+    fontFamily: "ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Noto Sans\", Arial, sans-serif"
     fontSize: 12px
-    fontWeight: 400
-    lineHeight: 1.20
-    letterSpacing: -0.12px
-    fontFeature: cv11
-  button:
-    fontFamily: Inter Variable
-    fontSize: 14px
     fontWeight: 500
-    lineHeight: 1.0
-    letterSpacing: -0.14px
-    fontFeature: cv11
+    lineHeight: 17px
+    letterSpacing: 0
+  label-upper:
+    fontFamily: "ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Noto Sans\", Arial, sans-serif"
+    fontSize: 10px
+    fontWeight: 600
+    lineHeight: 15px
+    letterSpacing: 0
+  button-md:
+    fontFamily: "ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Noto Sans\", Arial, sans-serif"
+    fontSize: 14px
+    fontWeight: 600
+    lineHeight: 21px
+    letterSpacing: 0
+  mono-sm:
+    fontFamily: "Menlo, ui-monospace, SFMono-Regular, Monaco, Consolas, \"Liberation Mono\", monospace"
+    fontSize: 9.75px
+    fontWeight: 500
+    lineHeight: normal
+    letterSpacing: 0
+  mono-md:
+    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", monospace"
+    fontSize: 12px
+    fontWeight: 500
+    lineHeight: 12px
+    letterSpacing: 0
 
 rounded:
-  xs: 4px
-  sm: 6px
-  md: 10px
-  lg: 15px
-  xl: 20px
-  xxl: 30px
-  pill: 100px
-  full: 9999px
+  none: "0px"
+  xxs: "2px"
+  xs: "3px"
+  sm: "4px"
+  md: "5px"
+  lg: "8px"
+  xl: "12px"
+  full: "50%"
 
 spacing:
-  hair: 1px
-  xxs: 4px
-  xs: 8px
-  sm: 12px
-  md: 15px
-  lg: 20px
-  xl: 30px
-  xxl: 40px
-  section: 96px
+  xxs: "2px"
+  xs: "4px"
+  sm: "6px"
+  md: "8px"
+  base: "12px"
+  lg: "16px"
+  xl: "20px"
+  2xl: "40px"
+  3xl: "64px"
 
 components:
   button-primary:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.on-primary}"
-    typography: "{typography.button}"
-    rounded: "{rounded.pill}"
-    padding: 10px 15px
-  button-primary-pressed:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.on-primary}"
-    typography: "{typography.button}"
-    rounded: "{rounded.pill}"
-  button-secondary:
-    backgroundColor: "{colors.surface-1}"
-    textColor: "{colors.ink}"
-    typography: "{typography.button}"
-    rounded: "{rounded.pill}"
-    padding: 10px 15px
-  button-translucent:
-    backgroundColor: "{colors.surface-2}"
-    textColor: "{colors.ink}"
-    typography: "{typography.button}"
-    rounded: "{rounded.xxl}"
-    padding: 8px 14px
-  button-icon-circular:
-    backgroundColor: "{colors.surface-1}"
-    textColor: "{colors.ink}"
-    typography: "{typography.button}"
-    rounded: "{rounded.full}"
-    size: 40px
-  pricing-tab-default:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink-muted}"
-    typography: "{typography.button}"
-    rounded: "{rounded.pill}"
-    padding: 8px 14px
-  pricing-tab-selected:
-    backgroundColor: "{colors.surface-2}"
-    textColor: "{colors.ink}"
-    typography: "{typography.button}"
-    rounded: "{rounded.pill}"
-    padding: 8px 14px
-  text-input:
-    backgroundColor: "{colors.surface-1}"
-    textColor: "{colors.ink}"
-    typography: "{typography.body}"
-    rounded: "{rounded.md}"
-    padding: 10px 14px
-  text-input-focused:
-    backgroundColor: "{colors.surface-1}"
-    textColor: "{colors.ink}"
-    typography: "{typography.body}"
-    rounded: "{rounded.md}"
-    padding: 10px 14px
-  pricing-card:
-    backgroundColor: "{colors.surface-1}"
-    textColor: "{colors.ink}"
-    typography: "{typography.body}"
-    rounded: "{rounded.xl}"
-    padding: 24px
-  pricing-card-featured:
-    backgroundColor: "{colors.surface-2}"
-    textColor: "{colors.ink}"
-    typography: "{typography.body}"
-    rounded: "{rounded.xl}"
-    padding: 24px
-  template-card:
-    backgroundColor: "{colors.surface-1}"
-    textColor: "{colors.ink}"
-    typography: "{typography.body-sm}"
+    backgroundColor: "{colors.ink-dark}"
+    textColor: "{colors.canvas}"
+    typography: "{typography.button-md}"
     rounded: "{rounded.lg}"
-    padding: 12px
-  gradient-spotlight-card:
-    backgroundColor: "{colors.gradient-violet}"
-    textColor: "{colors.ink}"
-    typography: "{typography.subhead}"
-    rounded: "{rounded.xl}"
-    padding: 32px
-  gradient-spotlight-card-magenta:
-    backgroundColor: "{colors.gradient-magenta}"
-    textColor: "{colors.ink}"
-    typography: "{typography.subhead}"
-    rounded: "{rounded.xl}"
-    padding: 32px
-  gradient-spotlight-card-orange:
-    backgroundColor: "{colors.gradient-orange}"
-    textColor: "{colors.ink}"
-    typography: "{typography.subhead}"
-    rounded: "{rounded.xl}"
-    padding: 32px
-  product-mockup-tile:
-    backgroundColor: "{colors.surface-1}"
-    textColor: "{colors.ink}"
-    typography: "{typography.body-sm}"
-    rounded: "{rounded.xl}"
-    padding: 16px
-  feature-row:
+    padding: "8px 12px"
+    height: "48px"
+    border: "0"
+  button-secondary:
     backgroundColor: "{colors.canvas}"
     textColor: "{colors.ink}"
-    typography: "{typography.body}"
-    rounded: "{rounded.xs}"
-  comparison-row:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink-muted}"
-    typography: "{typography.body-sm}"
-    rounded: "{rounded.xs}"
+    typography: "{typography.button-md}"
+    rounded: "{rounded.lg}"
+    padding: "8px 12px"
+    height: "40px"
+    borderColor: "{colors.hairline}"
   top-nav:
     backgroundColor: "{colors.canvas}"
     textColor: "{colors.ink}"
-    typography: "{typography.body-sm}"
-    rounded: "{rounded.xs}"
-    height: 56px
-  faq-row:
+    typography: "{typography.label-sm}"
+    rounded: "{rounded.none}"
+    padding: "8px 12px"
+    height: "48px"
+  nav-link:
+    backgroundColor: "transparent"
+    textColor: "{colors.ink}"
+    typography: "{typography.label-sm}"
+    padding: "4px 8px"
+  hero-heading:
+    backgroundColor: "transparent"
+    textColor: "{colors.ink}"
+    typography: "{typography.display-xl}"
+    padding: "0"
+  section-heading:
+    backgroundColor: "transparent"
+    textColor: "{colors.ink}"
+    typography: "{typography.display-lg}"
+  body-paragraph:
+    backgroundColor: "transparent"
+    textColor: "{colors.ink-muted}"
+    typography: "{typography.body-md}"
+  card:
     backgroundColor: "{colors.canvas}"
     textColor: "{colors.ink}"
-    typography: "{typography.body}"
+    typography: "{typography.body-md}"
+    rounded: "{rounded.lg}"
+    padding: "12px"
+    borderColor: "{colors.hairline}"
+  release-badge:
+    backgroundColor: "{colors.surface-1}"
+    textColor: "{colors.ink}"
+    typography: "{typography.mono-sm}"
     rounded: "{rounded.md}"
-    padding: 24px
+    padding: "8px 10px"
+    height: "48px"
+  code-inline:
+    backgroundColor: "{colors.surface-1}"
+    textColor: "{colors.ink}"
+    typography: "{typography.mono-sm}"
+    rounded: "{rounded.xxs}"
+    padding: "1px 3px"
+  benchmark-card:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.ink}"
+    typography: "{typography.label-sm}"
+    rounded: "{rounded.lg}"
+    padding: "12px"
+    borderColor: "{colors.hairline}"
+  runtime-chip:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.ink}"
+    typography: "{typography.label-sm}"
+    rounded: "{rounded.lg}"
+    padding: "8px 12px"
+    borderColor: "{colors.hairline}"
+  database-chip:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.ink}"
+    typography: "{typography.label-sm}"
+    rounded: "{rounded.lg}"
+    padding: "8px 12px"
+    borderColor: "{colors.hairline}"
+  studio-panel:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.ink}"
+    typography: "{typography.label-sm}"
+    rounded: "{rounded.lg}"
+    padding: "0"
+    borderColor: "{colors.hairline}"
+  text-input:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.ink}"
+    typography: "{typography.body-md}"
+    rounded: "{rounded.lg}"
+    padding: "8px 12px"
+    height: "40px"
+    borderColor: "{colors.hairline}"
+  cobalt-link:
+    backgroundColor: "transparent"
+    textColor: "{colors.cobalt}"
+    typography: "{typography.body-md}"
   footer:
     backgroundColor: "{colors.canvas}"
     textColor: "{colors.ink-muted}"
-    typography: "{typography.caption}"
-    rounded: "{rounded.xs}"
-    padding: 64px 32px
+    typography: "{typography.label-sm}"
+    padding: "40px 0px"
 ---
 
 ## Overview
 
-Framer's marketing canvas is a near-pure black artboard. The dominant surface is `{colors.canvas}` — almost pure black with a faint warmth — and on top of it sits oversized white display type set in **GT Walsheim Medium** with letter-spacing pulled to extreme negative values (-5.5px on the 110px display, -4.25px on the 85px hero). The page reads like a poster: one assertive statement per band, generous breathing room above and below.
+Drizzle's marketing page has no brand color — not a restrained one, not a held-in-reserve one. The CSS custom property namespace contains zero color tokens with brand, accent, or primary in any name. **Achromatic confidence.** Every surface resolves through an achromatic gray ladder from near-black charcoal ink (#222222) down to off-white canvas (#ffffff), with the single chromatic exception of cobalt link text (#006be6) that reads more like a browser convention than a brand decision. Where Prisma holds teal in reserve, and Cloudflare fills the canvas with orange, Drizzle makes no chromatic commitment at all — a system that trusts the product's technical merit to do what color would do for lesser tools.
 
-The single accent is `{colors.accent-blue}` — used scarcely, mostly for hyperlinks, selection halos, and a subtle blue-tinted shadow ring on focused inputs. The brand chrome itself is monochrome: white pill buttons, charcoal cards, gray secondary text. What makes Framer distinctive is the rhythm break — every few sections the page drops in a **vibrant gradient atmosphere card**: a magenta-violet spotlight, a sunset-orange wash, a coral-pink panel. These aren't section backgrounds; they're individual cards arranged in a card grid, each one a small living poster that shows what Framer can produce.
+The hero is deliberately low-ceremony. Three animated drizzle emoji (💧💧💧) float above a 40px system-ui headline — not a custom display typeface, not a hero image, not a mesh gradient. System-ui renders differently on every platform (San Francisco on macOS, Segoe UI on Windows, Noto Sans on Linux), and Drizzle makes no attempt to normalize this. Unlike Prisma's Mona Sans VF or Cloudflare's FT Kunst Grotesk, there is no type-as-brand-statement here. The system says: read the code, not the headline.
 
-Body type is **Inter Variable**, with Framer leaning hard into Inter's character variants (`cv01`, `cv05`, `cv09`, `cv11`, `ss03`, `ss07`, `dlig`) — the result is a body voice that feels custom-tuned, with single-storey "a", straight-leg "l", and tabular figures. There's no light mode on the marketing site; the brand IS dark.
+The shape language is **8px-dominant and documentation-native**. The 8px radius (141 occurrences) appears on every card, panel, and chip. A 2px tier (77 occurrences) handles the tiny inline code annotation chips that appear throughout the performance and integration sections. The Drizzle Studio data-table panel, the runtime chip grid, and the database integration grid all share the same 8px-rounded hairline-bordered card treatment — not because the design system mandates it, but because one surface and one radius covers the entire product.
 
 **Key Characteristics:**
-- Black-canvas marketing system: `{colors.canvas}` is the surface for hero, body, pricing, FAQ, and footer alike — no light interludes.
-- Massive negative letter-spacing on display sizes (-5.5px / -4.25px / -3.1px) creates a poster-grade headline cadence.
-- White pill (`{components.button-primary}`) is the only primary CTA shape across the site; secondary actions live as charcoal pills (`{components.button-secondary}`) or text links.
-- Oversized **gradient spotlight cards** (violet, magenta, orange, coral) act as showcase tiles inside the dark grid; they are individual cards, not section backgrounds.
-- Inter Variable with bespoke OpenType character variants (`cv01/05/09/11`, `ss03/ss07`, `dlig`) used everywhere body type appears — the typographic voice is unmistakable.
-- Border radius scale runs from 4px utility chips up to 100px pills and full circles, with 15–20px the default for cards and 30px for atmospheric gradient cards.
-- A single chromatic accent `{colors.accent-blue}` reserved for hyperlinks, focus, and selection — never decorative.
+- No declared primary color in CSS variables — the first developer-tools brand in this directory with a fully achromatic system.
+- Three animated emoji as the sole hero illustration — no custom SVG, no gradient mesh, no product screenshot above the fold.
+- System-ui for all prose and headings — the only non-system fonts are Menlo at 9.75px for inline code and a system mono stack at 12px for sidebar trees.
+- 8px dominant radius (141 occurrences), with a 2px base for code annotation chips.
+- Cobalt #006be6 for external reference links only — 20 total occurrences, all as link text/border, never as a button fill.
+- Gray-on-white hairline cards throughout — #cfd9de/#e8e8e8 borders on a white canvas, zero marketing-layer drop shadows.
+- Changelog-style release timeline running vertically in the hero section — "We ship decently fast" with a scrollable commit log next to a GitHub contributor avatar strip.
 
 ## Colors
 
-> Source pages: framer.com (home), /ai/, /startups/, /marketplace/templates/nudge/, /gallery/a16z-speedrun-×-tonik, /pricing.
+### Structural
 
-### Brand & Accent
-- **Pure White** ({colors.primary}): The brand primary surface. Every primary CTA pill, every display headline, every body line on canvas.
-- **Sky Blue** ({colors.accent-blue}): The single chromatic accent. Hyperlinks, focused-input rings, and a few selection states. Never used for backgrounds or as a brand fill.
+- **Ink** (`#222222`): frequency 1849. Used as text (978) and border (871) — the dominant near-black. Shared between the code editor foreground (--astro-code-color-text) and all heading text. Not pure black; a slightly warmer charcoal.
+- **Ink Dark** (`#0a0a0a`): frequency 71. Used as text (69) — the darkest readable text tone, used for the primary CTA button label and the tightest headline weight.
+- **Ink Mid** (`#282b3b`): frequency 341. Used as text (185) and border (153) — a slightly blue-dark gray used for body copy in the sidebar navigation and documentation-entry text blocks.
+- **Ink Muted** (`#444444`): frequency 870. Used as text (409) and border (461) — the secondary text and border workhorse. Wired as --astro-code-token-punctuation.
+- **Ink Secondary** (`#4b5563`): frequency 15. Used as text (8) and border (7) — tertiary text for captions and footer metadata.
+- **Ink Tertiary** (`#71767b`): frequency 44. Used as text (22) and border (22) — the muted metadata tone for dates, contributor handles, and secondary labels.
+- **Ink Faint** (`#909090`): frequency 14. Used as text (7) and border (7) — the most muted readable text, used for placeholder labels and disabled states.
+- **Canvas** (`#ffffff`): frequency 290. Used as background (247), border (17), shadow (13), gradient (10), text (3). The page floor, card surfaces, and the docsearch modal background.
+- **Surface-1** (`#e8e8e8`): frequency 183. Used as background (44) and border (139) — the light gray border and muted surface tone. Wired as --docsearch-searchbox-background and the release badge background fill.
+- **Surface Muted** (`#808080`): frequency 17. Used as background (14) — mid-gray fill for the performance chart secondary elements.
+- **Surface Dark** (`#333333`): frequency 8. Used as text (4) and border (4) — a dark-tone surface variant for the changelog timeline markers.
+- **Hairline** (`#cfd9de`): frequency 7. Used as border (5) and gradient (2) — the lightest structural border, used for card separators and the key-gradient on the docsearch chip.
 
-### Surface
-- **Canvas** ({colors.canvas}): Default page background — near-black with a faint warmth. Footer, pricing, hero, and FAQ all sit on it.
-- **Surface 1** ({colors.surface-1}): One step above canvas — pricing cards, secondary buttons, mockup tiles.
-- **Surface 2** ({colors.surface-2}): Two steps above — featured pricing card, hero pill backdrop, selected pricing tab.
-- **Hairline** ({colors.hairline}): 1px borders on input groups, comparison-table dividers.
-- **Hairline Soft** ({colors.hairline-soft}): Subtler dividers — between FAQ rows and footer column rules.
-- **Inverse Canvas** ({colors.inverse-canvas}): Pure white — used as the surface of light-on-dark pill CTAs and a small set of light-mode template thumbnails embedded in the showcase grid.
+### Accent
 
-### Text
-- **Ink** ({colors.ink}): All headline and emphasized body type — pure white.
-- **Ink Muted** ({colors.ink-muted}): Secondary type — gray (#999999) used for meta info, footer columns, comparison-row labels, deselected pricing tabs. Hierarchy on the dark canvas is carried by ink → ink-muted contrast, not by weight changes.
-
-### Semantic
-- **Success Green** ({colors.semantic-success}): Pricing comparison-table checkmarks. Glyph fill, not surface.
-
-### Brand Gradient (signature)
-- **Gradient Magenta** ({colors.gradient-magenta}): Spotlight card variant.
-- **Gradient Violet** ({colors.gradient-violet}): Spotlight card variant — most common.
-- **Gradient Orange** ({colors.gradient-orange}): Spotlight card variant — sunset wash.
-- **Gradient Coral** ({colors.gradient-coral}): Spotlight card variant — coral/pink.
-
-These four sit as oversized atmospheric tiles inside otherwise monochrome card grids — a dark canvas with one or two glowing spotlight cards is a recurring page signature.
+- **Cobalt** (`#006be6`): frequency 20. Used as text (10) and border (10) — the only chromatic moment in the system. External reference links in the integration and sponsor sections. Not declared as a CSS custom property — it appears to be browser-default-adjacent link styling.
+- **Cobalt Light** (`#3e7ff0`): frequency 2. Used as text (1) and border (1) — a lighter cobalt variant in a single location.
+- **Shadow** (`#000000`): frequency 156. Used as text (62), border (59), shadow (35) — the pure-black shadow ink for drop-shadow halos on cards and the docsearch modal.
 
 ## Typography
 
-### Font Family
+### Font Families
 
-- **GT Walsheim Framer Medium** / **GT Walsheim Medium** — Framer's display typeface. Geometric, slightly humanist, very confident at large sizes with extreme negative tracking. Fallbacks: `GT Walsheim Medium Placeholder` system font.
-- **Inter Variable** — System body typeface. Used with extensive OpenType character variants: `cv01` (alternate "1"), `cv05` (alternate "g"), `cv09` (alternate "i" / "l"), `cv11` (alternate "0"), `ss03` / `ss07` stylistic sets, `dlig` discretionary ligatures, and `tnum` for numerics in tabular contexts. The result is a body voice that feels bespoke without commissioning a custom face.
-- **Inter** — Used selectively for `{typography.headline}` (the 22px / 20px tier). The non-variable cut catches small tracking targets that the variable file rounds.
+The system runs two voices: **system-ui** (resolving to San Francisco / Segoe UI / Noto Sans per platform) for all prose, headings, and navigation; and **Menlo** (with system mono fallback) for two distinct code tiers. There is no branded display typeface.
+
+Unlike every other developer-tools brand in the directory, Drizzle commits to system-ui at the display tier — the headline looks like the OS's default sans-serif because it is. The code tier uses Menlo at 9.75px for inline annotation chips (the smallest code tier in any captured system) and a system mono stack at 12px for sidebar tree entries.
 
 ### Hierarchy
 
-| Token | Size | Weight | Line Height | Letter Spacing | Use |
-|---|---|---|---|---|---|
-| `{typography.display-xxl}` | 110px | 500 | 0.85 | -5.5px | Largest hero headline (home, AI page) |
-| `{typography.display-xl}` | 85px | 500 | 0.95 | -4.25px | Section opener headlines |
-| `{typography.display-lg}` | 62px | 500 | 1.00 | -3.1px | Sub-section openers |
-| `{typography.display-md}` | 32px | 500 | 1.13 | -1.0px | Card titles, smaller display |
-| `{typography.headline}` | 22px | 700 | 1.20 | -0.8px | Pricing tier headlines, FAQ category titles |
-| `{typography.subhead}` | 24px | 400 | 1.30 | -0.01px | Lead body next to display headlines |
-| `{typography.body-lg}` | 18px | 400 | 1.30 | -0.18px | Hero subhead, lead paragraphs |
-| `{typography.body}` | 15px | 400 | 1.30 | -0.15px | Default body, card descriptions |
-| `{typography.body-sm}` | 14px | 500 | 1.40 | -0.14px | Pricing comparison rows, dense data |
-| `{typography.caption}` | 13px | 500 | 1.20 | -0.13px | Eyebrows, footer columns, meta |
-| `{typography.micro}` | 12px | 400 | 1.20 | -0.12px | Disclaimer, footnote |
-| `{typography.button}` | 14px | 500 | 1.0 | -0.14px | Pill buttons |
+| Token | Size | Weight | Use |
+|---|---|---|---|
+| `{typography.display-xl}` | 40px | 700 | Hero h2 "ORM for you to settle" and "We ship decently fast" |
+| `{typography.display-lg}` | 32px | 600 | "Performance" and "Connect to any database" section headings |
+| `{typography.heading-md}` | 20px | 500 | Sub-section labels and integration category titles |
+| `{typography.heading-sm}` | 18px | 600 | Feature card headings ("Live on the edge", etc.) |
+| `{typography.body-lg}` | 16px | 400 | Default div/span body text, wider reading blocks |
+| `{typography.body-md}` | 14px | 400 | Primary paragraph body copy |
+| `{typography.body-bold}` | 14px | 700 | Bold emphasis within paragraphs |
+| `{typography.label-md}` | 14px | 600 | Runtime chip labels, integration names |
+| `{typography.label-sm}` | 12px | 500 | Dominant UI label — navigation, sidebar, metadata (469 occurrences) |
+| `{typography.label-upper}` | 10px | 600 | Uppercase section divider labels |
+| `{typography.button-md}` | 14px | 600 | Button and CTA labels |
+| `{typography.mono-sm}` | 9.75px | 500 | Inline code chips — the system's smallest code tier |
+| `{typography.mono-md}` | 12px | 500 | Sidebar tree entries and compact code labels |
 
 ### Principles
 
-- **Letter-spacing scales with size, hard.** Display-xxl pulls -5.5px (5% of size); body sticks to about -1% (-0.15px on 15px). The result: posters at the top, comfortable reading at body.
-- **OpenType character variants are the brand voice.** Switching off `cv11`, `ss03`, etc. visibly changes the body voice — the brand depends on them.
-- **Weight stays in a narrow band.** Display sits at 500, body at 400, body-sm/caption at 500. Hierarchy is carried by size + tracking, not by 700/900 ramps.
-- **Tight line-heights everywhere.** Even body runs at 1.30 — Framer's editorial tone is denser than typical SaaS marketing.
+The dominant size is 12px / weight 500 (469 occurrences of `{typography.label-sm}`) — the system spends more time in compact navigation and sidebar labels than in body paragraphs. This is a documentation-first type hierarchy, not a marketing one. The 40px display headline at weight 700 is the single moment the scale opens up.
 
 ### Note on Font Substitutes
 
-If implementing without GT Walsheim Medium, suitable open-source substitutes include **Mona Sans**, **Geist**, or **Inter** at weight 600–700 with manually tightened tracking. Mona Sans's hairline weights at 100–300 are particularly close to Framer's cleaner section openers. Inter Variable is open-source — keep it as-is and preserve the documented OpenType variants.
+System-ui renders as San Francisco on macOS (with its distinctive 'a' and 'g' letterforms) and as Segoe UI on Windows (with noticeably wider inter-letter spacing). For a cross-platform system where consistency matters, substitute Inter at weight 400–700 at all tiers — Inter is the closest neutral approximation of the system-ui register across all platforms.
 
 ## Layout
 
 ### Spacing System
 
-- **Base unit**: 5px (Framer uses non-standard 5/10/15/20/30 increments rather than the more common 4/8/16/24).
-- **Tokens (front matter)**: `{spacing.hair}` 1px · `{spacing.xxs}` 4px · `{spacing.xs}` 8px · `{spacing.sm}` 12px · `{spacing.md}` 15px · `{spacing.lg}` 20px · `{spacing.xl}` 30px · `{spacing.xxl}` 40px · `{spacing.section}` 96px.
-- Card interior padding: `{spacing.lg}` 20px on pricing cards; `{spacing.xl}` 30px on gradient spotlight cards.
-- Pill button padding: 10px vertical · 15px horizontal — `{components.button-primary}`.
-- Section padding (vertical): roughly `{spacing.section}` 96px on home; tighter (~64px) on pricing comparison.
+- **Base rhythm:** 8–12px, with the two most frequent single-value spacing tokens being 12px (54 occurrences) and 8px (39 occurrences).
+- **Tokens:** `{spacing.xxs}` 2px · `{spacing.xs}` 4px · `{spacing.sm}` 6px · `{spacing.md}` 8px · `{spacing.base}` 12px · `{spacing.lg}` 16px · `{spacing.xl}` 20px · `{spacing.2xl}` 40px · `{spacing.3xl}` 64px.
+- **Component padding:** `{spacing.md}` 8px × `{spacing.base}` 12px (105 occurrences — the most common multi-value padding, used on nav items and small chips).
+- **Section spacing:** approximately 40–64px between major sections.
 
 ### Grid & Container
 
-- Max content width sits around the 1199px breakpoint, with side gutters that scale toward `{spacing.xl}` on desktop.
-- Card grids on the home gallery use 2-up at desktop, collapsing to 1-up below 810px.
-- Pricing tier grid is 4-up across the documented breakpoints; comparison table beneath it uses fixed-width left column with horizontally scrolling tier columns at narrow widths.
+- **Hero layout:** two-column split at desktop — headline + integration badge strip left, product screenshot or release changelog right.
+- **Performance benchmarks:** two-panel side-by-side comparison grid at ~50/50 width.
+- **Runtime integration:** two-column chip grid listing Bun, Railway, Supabase Functions, Vercel Functions, Deno, Deploy, Fly.io, Lagon, ElectronJS, React Native, Expo, Browser.
+- **Database integration:** two-column chip grid with version badge annotations (e.g., "PlanetScale — BETA", "PostgreSQL — stable").
+- **Drizzle Studio:** full-width data-table panel with sidebar column tree, table header row, and paginated data rows.
+- **Sponsor section:** flat wordmark grid of cloud partners.
 
-### Whitespace Philosophy
+### Rhythm
 
-The dark canvas IS the whitespace. Where lighter brands lean on white air to separate sections, Framer leans on long stretches of black with a single oversized statement floating in the middle. Sections separate by mode change: a band of charcoal cards, then a band of black with a gradient spotlight, then back to charcoal — like cuts in a dark film.
+The page alternates between editorial text sections (left-aligned headline + body paragraph) and dense grid sections (chip grids, benchmark panels, the studio panel). The editorial sections have no surface fill — they read as negative space on the white canvas. The grid sections are bordered cards that create visual density without color. The rhythm is utilitarian: information density over pacing.
 
-## Elevation & Depth
+## Elevation
 
-| Level | Treatment | Use |
-|---|---|---|
-| 0 (flat) | No shadow, no border | Default for canvas-mounted display type, FAQ rows, footer |
-| 1 (charcoal) | `{colors.surface-1}` lift on canvas | Pricing cards, mockup tiles, secondary buttons |
-| 2 (light-edge) | `rgba(255,255,255,0.10)` 0.5px top edge + `rgba(0,0,0,0.25)` 0px 10px 30px drop | Floating product cards, modal cards |
-| 3 (selected) | `rgba(0,153,255,0.15)` 0px 0px 0px 1px ring | Focused inputs, selected option |
+The system uses **two elevation tiers**: flat white canvas for editorial sections, and hairline-bordered white cards for interactive and product UI surfaces. Shadow occurrences total 156, all using pure black (#000000) at low opacity — confined to the docsearch modal overlay and small card halos rather than any marketing-surface elevation. There is no tonal lift surface (no surface-1 used for card backgrounds) — cards share the same white canvas as the page floor and distinguish themselves exclusively through hairline borders.
 
-Four shadow signatures recur across the homepage: a 1px subtle drop, a translucent blue ring, a thick near-black 2px outline (used as the active-element marker on sub-nav), and the layered light-edge + drop-shadow used for floating cards.
-
-### Decorative Depth
-
-- **Gradient spotlight cards** are the dominant depth device — color saturation against black canvas substitutes for shadow-driven elevation.
-- **Layered product mockups** (browser frames containing live Framer-built sites) sit inside `{colors.surface-1}` cards with the level-2 light-edge treatment.
-- **Subtle blue ring (focus / selected)** is the only chromatic depth signal — used to mark the active state of input groups and pricing tier toggles without changing the underlying surface.
+- **Flat:** all editorial sections, hero, footer.
+- **Hairline-bordered:** all cards, chips, the release badge, the studio panel, benchmark panels.
+- **Modal shadow:** the docsearch modal uses a multi-layer box-shadow with a dark blue-gray tint — the one meaningfully-elevated surface on the page.
 
 ## Shapes
 
-### Border Radius Scale
+The radius scale is **8px-dominant with a 2px annotation tier**:
 
-Framer's extracted radius set is unusually granular (1px, 4px, 5px, 6px, 8px, 10px, 12px, 15px, 20px, 30px, 40px, 100px). The named scale below picks the levels the marketing surface actually consumes.
+- `{rounded.none}` 0px — hero container and editorial section backgrounds.
+- `{rounded.xxs}` 2px — inline code annotation chips (77 occurrences) — the smallest code-label tier in any captured system.
+- `{rounded.xs}` 3px — secondary small UI surfaces.
+- `{rounded.sm}` 4px — tertiary card edges and form element variants.
+- `{rounded.md}` 5px — release badge chip.
+- `{rounded.lg}` 8px — the dominant card radius (141 occurrences): all feature cards, benchmark panels, runtime and database chip grids, the studio panel, input fields, and the primary CTA button.
+- `{rounded.xl}` 12px — the docsearch modal overlay (the search modal is the most elevated surface and gets the largest radius).
+- `{rounded.full}` 50% — contributor avatar circles in the team strip.
 
-| Token | Value | Use |
-|---|---|---|
-| `{rounded.xs}` | 4px | Small chip / utility radius |
-| `{rounded.sm}` | 6px | Inline tag, badge |
-| `{rounded.md}` | 10px | Form input, list item |
-| `{rounded.lg}` | 15px | Template card thumbnails |
-| `{rounded.xl}` | 20px | Pricing cards, mockup tiles |
-| `{rounded.xxl}` | 30px | Gradient spotlight cards, oversized panels |
-| `{rounded.pill}` | 100px | All primary text CTAs |
-| `{rounded.full}` | 9999px | Circular icon buttons, avatar circles |
-
-### Photography & Illustration Geometry
-
-- Embedded site mockups (browser-chromed previews of Framer-built sites) sit in `{rounded.xl}` 20px tiles with `{spacing.md}` 15px interior padding.
-- Gradient spotlight cards use `{rounded.xxl}` 30px corners — softer than the 20px content cards by design, to make them feel like atmospheric panels rather than tighter UI.
-- Icon glyphs and sub-nav glyphs render in `{rounded.full}` circles at 32–40px sizes.
+There is no pill radius. The maximum button radius is 8px, matching the card default exactly — buttons do not receive special rounding treatment.
 
 ## Components
 
-### Buttons
+**`button-primary`** — Near-black `{colors.ink-dark}` fill, white text, system-ui 14px / 600, `{rounded.lg}` 8px radius, 8×12px padding, 48px height. "Get Started" is the canonical instance. The CTA is a dark rectangle with no chromatic brand — it reads more like a terminal `Run` button than a marketing CTA.
 
-**`button-primary`** — White pill on dark canvas. The primary CTA across home, pricing, AI, and gallery pages.
-- Background `{colors.primary}`, text `{colors.on-primary}`, type `{typography.button}`, padding 10px 15px, rounded `{rounded.pill}`.
-- Pressed state lives in `button-primary-pressed` (the live site uses a transform-scale shrink rather than a darkened fill).
+**`button-secondary`** — White canvas fill, ink text, 1px `{colors.hairline}` border, 8px radius, 40px height. Used for "Documentation", "Search Docs", "Ask Docs" on the hero badge strip.
 
-**`button-secondary`** — Charcoal pill. Used for secondary navigation actions ("Sign in", "Talk to sales") and as the visual counterpart to the primary pill.
-- Background `{colors.surface-1}`, text `{colors.ink}`, type `{typography.button}`, padding 10px 15px, rounded `{rounded.pill}`.
+**`top-nav`** — White canvas, 48px height. Drizzle wordmark left, "Get Started / Documentation / Studio / Benchmarks" links right, plus a GitHub star count badge and a social media icon.
 
-**`button-translucent`** — Translucent / lifted secondary used on top of busy backgrounds (gallery hero, gradient cards).
-- Background `{colors.surface-2}`, text `{colors.ink}`, type `{typography.button}`, rounded `{rounded.xxl}`, padding 8px 14px.
+**`nav-link`** — Transparent background, ink text at `{typography.label-sm}` (12px / 500), 4×8px padding.
 
-**`button-icon-circular`** — 40px circle for inline icon actions (carousel arrows, social links).
-- Background `{colors.surface-1}`, text `{colors.ink}`, rounded `{rounded.full}`, size 40px.
+**`hero-heading`** — Near-black ink, system-ui 40px / weight 700. "ORM for you to settle" (with animated drizzle emoji above it).
 
-### Pricing Tabs
+**`section-heading`** — Same ink, system-ui 32px / weight 600. "We ship decently fast," "Performance," "Connect to any database."
 
-**`pricing-tab-default`** + **`pricing-tab-selected`** — The pill-toggle that switches between Basic / Pro / Business / Enterprise on `/pricing`.
-- Default: `{colors.canvas}` background, `{colors.ink-muted}` text, rounded `{rounded.pill}`.
-- Selected: `{colors.surface-2}` background, `{colors.ink}` text — selected = lift, not color. Surface depth communicates "active" without needing a chromatic fill.
+**`body-paragraph`** — `{colors.ink-muted}` (#444444), system-ui 14px / 400. The workhorse paragraph style.
 
-### Inputs & Forms
+**`card`** — White canvas, 1px `{colors.hairline}` border, 8px radius, 12px padding. The universal component container.
 
-**`text-input`** + **`text-input-focused`** — Form fields on `/pricing` (seat-count, currency switcher) and the in-product preview surfaces.
-- Background `{colors.surface-1}`, text `{colors.ink}`, type `{typography.body}`, rounded `{rounded.md}`, padding 10px 14px.
-- Focused state retains the same surface; the focus ring is the level-3 blue-tinted shadow `rgba(0,153,255,0.15)` 0 0 0 1px.
+**`release-badge`** — Light gray `{colors.surface-1}` fill, dark ink text, monospace 9.75px, 5px radius, 8×10px padding, 48px height. The "v1.0 release 98%" chip above the hero badge strip — a release-progress indicator rather than a conventional hero annotation badge.
 
-### Cards & Containers
+**`code-inline`** — Light gray fill, dark ink text, Menlo 9.75px, 2px radius, 1×3px padding. The inline code chip used throughout the body and integration descriptions.
 
-**`pricing-card`** — Each tier on `/pricing`.
-- Background `{colors.surface-1}`, text `{colors.ink}`, type `{typography.body}`, rounded `{rounded.xl}`, padding 24px.
+**`benchmark-card`** — White canvas, 1px hairline border, 8px radius, 12px padding. Holds a performance metric label, a line/area chart, and numeric summary rows.
 
-**`pricing-card-featured`** — The Pro tier (visually emphasized).
-- Background `{colors.surface-2}`, otherwise identical structure. The lift is one surface step up — no chromatic outline.
+**`runtime-chip`** — White canvas, 1px hairline border, 8px radius, 8×12px padding. Holds a service icon + name label. "Railway", "Supabase functions", "Vercel Functions" etc.
 
-**`template-card`** — Thumbnail tile in the home "Built with Framer" gallery and `/marketplace`.
-- Background `{colors.surface-1}`, text `{colors.ink}`, type `{typography.body-sm}`, rounded `{rounded.lg}`, padding 12px.
+**`database-chip`** — Same treatment as `runtime-chip` with an additional version badge annotation ("BETA", "stable" in a monospace micro-label).
 
-**`product-mockup-tile`** — Larger tile that frames a live product UI mock (Framer canvas, Workshop video, AI translate panel).
-- Background `{colors.surface-1}`, text `{colors.ink}`, type `{typography.body-sm}`, rounded `{rounded.xl}`, padding 16px.
+**`studio-panel`** — White canvas, 1px hairline border, 8px radius. Full-width data-table: sidebar column tree left, column header row, paginated rows. The only table-style component in the captured surface.
 
-### Gradient Spotlight Cards (signature)
+**`text-input`** — White canvas, 1px hairline border, 8px radius, 8×12px padding, 40px height. Used in the docsearch trigger and the search modal.
 
-The defining decorative surface of Framer's marketing — oversized atmospheric tiles dropped into otherwise monochrome card grids. Variants:
+**`cobalt-link`** — Transparent background, cobalt #006be6 text. External reference links — the only chromatic text in the system.
 
-**`gradient-spotlight-card`** — violet ground (most common).
-- Background `{colors.gradient-violet}`, text `{colors.ink}`, type `{typography.subhead}`, rounded `{rounded.xl}`, padding 32px. (The on-site card often pushes to `{rounded.xxl}` 30px when it spans a wider tile.)
-
-**`gradient-spotlight-card-magenta`** — magenta-pink ground.
-- Background `{colors.gradient-magenta}`, otherwise identical.
-
-**`gradient-spotlight-card-orange`** — sunset-orange wash.
-- Background `{colors.gradient-orange}`, otherwise identical.
-
-(Coral pink follows the same shape with `{colors.gradient-coral}`.)
-
-### Comparison & FAQ
-
-**`feature-row`** + **`comparison-row`** — Single rows inside the pricing comparison table.
-- `feature-row`: `{colors.canvas}` background, `{colors.ink}` text. Header rows.
-- `comparison-row`: `{colors.canvas}` background, `{colors.ink-muted}` text. Data rows with `{typography.body-sm}` and 1px `{colors.hairline-soft}` underlines.
-
-**`faq-row`** — Each accordion line in the pricing-page FAQ.
-- Background `{colors.canvas}`, text `{colors.ink}`, type `{typography.body}`, rounded `{rounded.md}`, padding 24px.
-
-### Navigation
-
-**`top-nav`** — Sticky bar on `{colors.canvas}` with the Framer wordmark left, primary nav links centered, and a `button-secondary` ("Sign in") + `button-primary` ("Get started for free") pair right.
-- Background `{colors.canvas}`, text `{colors.ink}`, type `{typography.body-sm}`, height 56px.
-- Mobile: collapses primary links into a hamburger; the two pill CTAs collapse into a single primary pill on the bar.
-
-### Footer
-
-**`footer`** — Dense link grid on `{colors.canvas}` with the Framer wordmark left and 5–6 columns of caption-sized links.
-- Background `{colors.canvas}`, text `{colors.ink-muted}`, type `{typography.caption}`, padding 64px 32px.
+**`footer`** — White canvas, ink-muted text, 12px / 500. Flat footer: sponsor wordmarks, GitHub star count, Drizzle team credit.
 
 ## Do's and Don'ts
 
-### Do
+**Do** commit to the achromatic palette fully. The system's distinctiveness is the absence of brand color — adding even a low-saturation teal or indigo accent breaks the one design decision that makes Drizzle recognizable in a category full of voltage-heavy competitors.
 
-- Reserve `{colors.primary}` (white) and `{colors.canvas}` (near-black) as the system's two anchor surfaces. Every band of the page chooses one or the other.
-- Push display-size letter-spacing aggressively negative — `{typography.display-xxl}` at -5.5px is the brand signature, not a stylistic accident.
-- Use `{colors.accent-blue}` only for hyperlinks, focus rings, and selected indicators. Never as a background or button fill.
-- Drop one or two `gradient-spotlight-card` variants into a card grid; they are the brand's atmosphere device. Don't overdo it — three or more in the same viewport reads as a moodboard, not a system.
-- Compose every CTA as a pill (`{rounded.pill}`); secondary actions live as charcoal pills, never as bordered ghost buttons.
-- Keep body type Inter Variable with character variants `cv01`, `cv05`, `cv09`, `cv11`, `ss03`, `ss07` enabled — the brand voice depends on them.
-- Use surface lift (canvas → surface-1 → surface-2) to mark hierarchy on dark, not opacity changes on white type.
+**Do** use system-ui at 40px / weight 700 for the top-level display headline. The system makes no attempt to normalize cross-platform rendering — the platform-native typeface IS the design. Using Inter or another loaded web font instead imports an editorial intention that the system explicitly lacks.
 
-### Don't
+**Do** use Menlo at 9.75px for inline code chips. The ultra-small mono tier is the system's highest-density information surface — it lets code annotations sit inline without breaking paragraph rhythm. Using a larger mono size (14px+) would visually overwhelm the surrounding body copy.
 
-- Don't ship a light-mode marketing page. Framer's identity is dark.
-- Don't introduce mid-tone gray text outside `{colors.ink-muted}`. The hierarchy is binary: `ink` or `ink-muted`.
-- Don't use `{colors.accent-blue}` as a brand fill (e.g., a blue CTA pill). The blue is a signal color, not a surface.
-- Don't square off CTAs. Pill (`{rounded.pill}`) or full circle is the brand vocabulary.
-- Don't reduce the negative letter-spacing on display sizes "for accessibility". The compression is intrinsic to the brand voice; reduce the SIZE if needed, but keep the percentage.
-- Don't apply gradient backgrounds to whole sections. Gradients are CARDS, not section grounds.
-- Don't combine more than one chromatic accent. The palette is monochrome plus one blue plus the gradient family — not "blue, green, and red".
+**Do** use hairline borders (#cfd9de / #e8e8e8) exclusively for card elevation. There are no tonal-lift surfaces (no gray card backgrounds), no drop shadows on marketing cards. Every card distinguishes itself from the canvas through a 1px border only.
 
-## Responsive Behavior
+**Don't** introduce a brand color for the primary CTA button. The near-black `{colors.ink-dark}` fill is not a placeholder — it is the deliberate CTA treatment for a tool that trusts its technical documentation over chromatic persuasion. Changing it to teal, indigo, or green imports a visual hierarchy borrowed from competitors.
 
-### Breakpoints
+**Don't** use the cobalt link color (#006be6) for anything other than external reference links. It appears exclusively on outbound link text and borders — it is not a brand accent, a CTA fill, or an interactive state indicator. Placing cobalt on a button or card background would misrepresent its semantic role.
 
-| Name | Width | Key Changes |
-|---|---|---|
-| Desktop | 1199px | Default desktop layout |
-| Tablet | 810px | Card grids collapse 4-up → 2-up; nav becomes hamburger |
-| Mobile-Lg | 809px | Pricing comparison table becomes per-tier accordion |
-| Mobile-XS | 98px | Smallest documented breakpoint — single-column everything |
+**Don't** add a custom display typeface above the system-ui stack. The system-ui rendering variance across platforms is load-bearing — the slightly-different San Francisco / Segoe UI / Noto Sans rendering across macOS / Windows / Linux is what gives the page a "native documentation" rather than "branded marketing" feel. A display typeface collapses that variance into a uniform editorial signal.
 
-### Touch Targets
-
-- Pill buttons (`button-primary`, `button-secondary`) maintain a minimum 44px tap height across all viewports — combine `{typography.button}` 14px line-height with the documented 10px vertical padding.
-- Circular icon buttons (`button-icon-circular`) are 40px on desktop and grow to 44px on touch viewports.
-- Pricing-tab pills hold ≥40px tap height; below 810px they may collapse into a horizontal-scroll row instead of stacking.
-
-### Collapsing Strategy
-
-- **Nav**: horizontal nav with a centered link group + right-anchored pill pair collapses to a hamburger overlay below 810px. The `button-primary` stays visible on the bar.
-- **Card grids**: the gallery and template-card grids go 2-up on desktop → 1-up on mobile. Gradient spotlight cards retain `{rounded.xxl}` corners at every viewport — they don't bleed.
-- **Pricing comparison table**: collapses into per-tier accordions below 810px to avoid horizontal scroll.
-- **Display type**: `{typography.display-xxl}` 110px scales down toward `{typography.display-lg}` 62px on tablet and `{typography.display-md}` 32px on mobile, preserving the percentage-negative letter-spacing.
-
-### Image Behavior
-
-- Embedded product mockups (browser frames containing live Framer-built sites) maintain their aspect ratio and never crop.
-- Gradient spotlight cards keep their gradient orientations across breakpoints — the gradient direction is part of the brand spec.
-
-## Iteration Guide
-
-1. Focus on ONE component at a time and reference it by its `components:` token name (e.g., `{components.button-primary}`, `{components.gradient-spotlight-card}`).
-2. When introducing a new section on the dark canvas, decide first which surface lift it lives on — `{colors.canvas}` for hero/FAQ, `{colors.surface-1}` for cards, `{colors.surface-2}` for featured cards. The depth choice is the most consequential decision.
-3. Default body to `{typography.body}` with all the documented OpenType variants; reach for `{typography.subhead}` only inside spotlight cards.
-4. Run `npx @google/design.md lint DESIGN.md` after edits — `broken-ref`, `contrast-ratio`, and `orphaned-tokens` warnings flag issues automatically.
-5. Add new variants as separate component entries (`-pressed`, `-featured`, `-selected`) — do not bury them in prose.
-6. Treat `{colors.accent-blue}` as a single-shot signal color: hyperlinks, focus, and selection — that's it. If you find yourself reaching for a second blue, the brand is drifting.
-7. Gradient spotlight cards are scarce by design. One or two per long page is the spec; three is a moodboard.
+**Don't** use the Menlo `{typography.mono-sm}` (9.75px) tier for any non-code content. At 9.75px it is below comfortable reading size for prose — its only valid use is inline code annotation chips where the monospace convention signals "this is a code identifier" to a developer audience.
 
 ## Known Gaps
 
-- The exact gradient stops for the spotlight cards are derived from screenshot pixels rather than from CSS variables — the production gradients are likely defined as `linear-gradient` strings on individual elements rather than as design tokens. Treat the documented `{colors.gradient-*}` hex values as base anchors, not as exact gradient specs.
-- Form-field validation / error styling is not visible on the inspected pages because no error states render in the static screenshots.
-- Dark mode is the only mode — no light-mode adaptation is documented because the marketing site does not ship one.
-- The marketplace template detail page returned sparser CSS variable data than the other pages; surface tokens for that page were inferred from the matching home / gallery treatment rather than extracted directly.
+- **No brand color documentation:** because the system has no primary CSS color variable, there is no canonical reference for what Drizzle's "brand color" would be in a more decorated context (e.g., a conference slide, a social media card, a sponsor badge). The system is genuinely achromatic by decision, not by omission.
+- **No dark mode:** the captured page is light-only. The CSS does not expose a dark-mode color set. The Drizzle Studio product panel uses a dark background internally, but this is a product-surface UI choice rather than a system-level dark mode.
+- **Navigation hover states:** `navLink` is captured in its resting state only. Hover styles (which likely add a light gray background fill) are not represented.
+- **Animation and motion:** the three emoji above the hero headline animate on a scroll-triggered sequence. The emoji themselves are the only animated element on the page. Easing curves and duration values are not captured.
+- **Table component internals:** the Drizzle Studio panel shows a data table with column sorting, row selection, and pagination controls. The precise token values for the table header, row hover, and selection states are not represented.
+- **Sponsor tier styling:** the "Our Sponsors" grid uses a flat wordmark layout whose hover states and tier-distinction (Cloud vs. Silver partner) use visual treatments not captured in the static screenshot.
