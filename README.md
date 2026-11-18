@@ -1,4 +1,4 @@
-# CityNexus: Urban Infrastructure Intelligence Platform
+ # CityNexus: Urban Infrastructure Intelligence Platform
 
 <p align="center">
   <img src="https://img.shields.io/badge/Status-Production--Ready-emerald" alt="Status">
